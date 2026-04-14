@@ -1,0 +1,122 @@
+/* ========================================
+   KPI CARDS
+   ======================================== */
+
+.kpi-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: 0;
+  animation: fadeIn 0.7s ease-out;
+  /* margin-top: 40px; */
+}
+
+@media (max-width: 640px) {
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpi-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--color-primary-glow), transparent);
+  border-radius: 0 0 0 100%;
+  opacity: 0.3;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-left-width: 6px;
+}
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* margin-bottom: var(--space-lg); */
+}
+
+.kpi-icon {
+  font-size: 1.5rem;
+}
+
+.kpi-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  /* border-top: 1px solid var(--color-border-light); */
+}
+
+.kpi-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.kpi-metric-label {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.kpi-metric-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}

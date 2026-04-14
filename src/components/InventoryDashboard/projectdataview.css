@@ -1,0 +1,222 @@
+/* Project Data View Container */
+.project-data-view {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  gap: 0;
+  background: var(--color-bg-secondary);
+  border-bottom: 3px solid var(--color-border-light);
+  padding: 0 var(--space-lg);
+  overflow-x: auto;
+}
+
+.tab-navigation::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tab-navigation::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+.tab-navigation::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: 2px;
+}
+
+.tab-btn {
+  padding: var(--space-md) var(--space-xl);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--color-primary);
+  background: var(--color-bg-tertiary);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  background: var(--color-bg-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-btn.active::before {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+}
+
+/* Tab Content */
+.tab-content {
+  padding: var(--space-xl);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pivot Section */
+.pivot-section {
+  width: 100%;
+}
+
+.section-header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Coming Soon Placeholder */
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xxl);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.coming-soon-icon {
+  font-size: 5rem;
+  margin-bottom: var(--space-lg);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.coming-soon h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.coming-soon p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tab-navigation {
+    padding: 0 var(--space-md);
+  }
+
+  .tab-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.85rem;
+  }
+
+  .tab-content {
+    padding: var(--space-lg);
+  }
+
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .coming-soon {
+    min-height: 300px;
+    padding: var(--space-xl);
+  }
+
+  .coming-soon-icon {
+    font-size: 3.5rem;
+  }
+
+  .coming-soon h3 {
+    font-size: 1.2rem;
+  }
+
+  .coming-soon p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-btn {
+    padding: var(--space-sm);
+    font-size: 0.75rem;
+  }
+
+  .tab-content {
+    padding: var(--space-md);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-header h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Dark Mode */
+[data-theme="dark"] .tab-btn.active {
+  background: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .coming-soon {
+  background: rgba(255, 255, 255, 0.05);
+}

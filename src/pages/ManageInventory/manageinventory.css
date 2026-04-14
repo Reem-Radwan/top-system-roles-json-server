@@ -1,0 +1,667 @@
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.inventory-container,
+.inventory-container *:not(.fa):not(.fas):not(.far):not(.fab):not([class*="fa-"]) {
+  font-family: 'Times New Roman', Times, serif;
+}
+.inventory-container {
+  background: #f4f6f9;
+  color: #333;
+  width: 100%;
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────────── */
+.inv-header {
+  background: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.inv-header h1 {
+  color: #555;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.header-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.company-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8f9fa;
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.company-select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────── */
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+  color: white;
+  font-weight: bold;
+  background-color: #6c757d;
+  min-width: 80px;
+}
+.action-btn:hover { background-color: #5a6268; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.action-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-excel { background-color: #10793F; }
+.btn-excel:hover { background-color: #0d6534; }
+.btn-secondary { background-color: #adb5bd; color: #333; }
+.btn-secondary:hover { background-color: #99a2aa; }
+.btn-sm { font-size: 12px; padding: 5px 10px; min-width: unset; }
+
+/* ── Layout ──────────────────────────────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  display: flex;
+  position: relative;
+  padding: 10px 0;
+  gap: 20px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.table-wrapper {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ── No company selected placeholder ────────────────────────────────────────── */
+.no-company-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+  font-style: italic;
+  min-height: 200px;
+}
+
+
+/* ── Table scroll container ─────────────────────────────────────────────────── */
+/*
+ * KEY FIX: overflow must be set on this element — NOT a parent — for
+ * position:sticky to work.  We also establish a stacking context here
+ * (isolation:isolate) so z-index values inside are self-contained and
+ * nothing bleeds outside the clipped area.
+ *
+ * overflow:auto   → creates the scroll host (required for sticky)
+ * overflow-x:auto → explicit horizontal scroll (mobile-safe alias)
+ * clip-path none  → do NOT use clip-path; it breaks sticky in Chrome
+ * transform:none  → do NOT set transform here; it breaks sticky everywhere
+ */
+.table-container {
+  overflow: auto;
+  overflow-x: auto;
+  flex: 1;
+  position: relative;
+  max-height: 65vh;
+  scroll-behavior: auto;
+  /* New stacking context — keeps z-index values contained */
+  isolation: isolate;
+  /* Clip content that overflows — prevents bleed on mobile */
+  -webkit-overflow-scrolling: touch;   /* smooth momentum scroll on iOS      */
+}
+
+/* ── Table ───────────────────────────────────────────────────────────────────── */
+.inv-table {
+  width: 100%;
+  /*
+   * CRITICAL: border-collapse:separate preserves z-index on sticky cells.
+   * border-collapse:collapse kills sticky z-index in Chrome & Firefox.
+   */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  /* NO will-change, NO transform — both break sticky positioning */
+  table-layout: auto;
+}
+
+/* ── Sticky header row ───────────────────────────────────────────────────────── */
+.inv-thead {
+  position: sticky;
+  top: 0;
+  /* Must sit above every body cell (z-index 5) and the fixed body cell (z-index 6).
+     Using 20 gives comfortable headroom. */
+  z-index: 20;
+}
+
+/* ── Normal (non-fixed) header cell ─────────────────────────────────────────── */
+.inv-th {
+  background: linear-gradient(180deg, #7e858d 0%, #6c757d 100%);
+  /* background-clip:padding-box stops the gradient from showing through
+     the border on browsers that subpixel-render borders */
+  background-clip: padding-box;
+  color: white;
+  padding: 8px 6px;
+  font-weight: bold;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 2px solid #5a6268;
+  white-space: nowrap;
+  position: relative;
+  font-size: 12px;
+  user-select: none;
+  /* Individual cells inside a sticky thead row do NOT need their own
+     position:sticky — the row handles vertical stickiness. */
+  z-index: 1;   /* within thead stacking context */
+}
+.inv-th.sortable { cursor: pointer; }
+.inv-th.sortable:hover { filter: brightness(1.03); }
+
+/* ── Fixed (first) header cell ───────────────────────────────────────────────── */
+/*
+ * This cell must be BOTH vertically sticky (from .inv-thead) AND
+ * horizontally sticky (from position:sticky + left:0 here).
+ * It therefore needs the highest z-index of anything in the table so it
+ * paints on top of ALL scrolling body cells — including fixed body cells.
+ *
+ * Stacking order used throughout this file:
+ *   normal body cells     → z-index: auto  (0)
+ *   fixed body cells      → z-index: 6
+ *   normal header cells   → z-index: 20   (via .inv-thead)
+ *   fixed header cell     → z-index: 30   ← top of the stack
+ */
+.th-fixed {
+  position: sticky;
+  left: 0;
+  z-index: 30;   /* above everything else in the table */
+  /* Solid, opaque background is MANDATORY — without it horizontal
+     scroll content shows through from behind */
+  background: linear-gradient(180deg, #7e858d 0%, #6c757d 100%) !important;
+  background-clip: padding-box !important;
+  /* Right shadow gives a visual "wall" so users know content is hidden */
+  box-shadow: 2px 0 6px rgba(0,0,0,0.20);
+}
+
+/* ── Sort indicators ─────────────────────────────────────────────────────────── */
+.sort-indicator {
+  margin-left: 6px;
+  font-size: 11px;
+  opacity: 0.85;
+  display: inline-block;
+  min-width: 14px;
+  text-align: center;
+}
+.inv-th.sorted .sort-indicator { opacity: 1; }
+
+.header-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.header-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+}
+.header-title { flex: 1; min-width: 90px; font-size: 12px; }
+
+.filter-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  padding: 4px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.filter-btn:hover { background: rgba(255,255,255,0.35); }
+.filter-btn.active-filter { background: rgba(255,200,0,0.45); }
+
+/* ── Table body rows ─────────────────────────────────────────────────────────── */
+.inv-tbody tr:nth-child(even) { background: #f8f9fa; }
+.inv-tbody tr:hover           { background: #eaeaea; }
+
+/* ── Normal body cell ────────────────────────────────────────────────────────── */
+.inv-td {
+  padding: 4px;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+  min-width: 85px;
+  max-width: 150px;
+  vertical-align: middle;
+  /* z-index is intentionally auto (= 0) here.
+     Do NOT set a positive z-index on normal body cells —
+     it would cause them to paint over the fixed column. */
+}
+
+/* ── Fixed (first) body cell ─────────────────────────────────────────────────── */
+/*
+ * Rules that make this work:
+ *   1. position:sticky + left:0   → horizontal stickiness
+ *   2. z-index:6                  → above normal body cells (auto/0), below header (20)
+ *   3. Explicit opaque background  → absolutely required; transparent = bleed
+ *   4. background-clip:padding-box → prevents gradient/color leaking through borders
+ *   5. box-shadow on right edge   → visual "wall" / clipping indicator
+ *
+ * The even/odd/hover overrides MUST also set an opaque background — if they
+ * inherit or are transparent the row background shows through on scroll.
+ */
+.td-fixed {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  background: #ffffff;
+  background-clip: padding-box;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.10);
+}
+
+/* Even rows — opaque, no transparency */
+.inv-tbody tr:nth-child(even) .td-fixed {
+  background: #f8f9fa;
+  background-clip: padding-box;
+}
+/* Hover state — opaque, no transparency */
+.inv-tbody tr:hover .td-fixed {
+  background: #eaeaea;
+  background-clip: padding-box;
+}
+
+/* ── Cell Content ────────────────────────────────────────────────────────────── */
+.cell-content {
+  outline: none;
+  padding: 4px;
+  border-radius: 3px;
+  min-height: 20px;
+  text-align: center;
+  display: block;
+  width: 100%;
+  word-break: break-word;
+  font-size: 12px;
+  background: transparent;
+}
+.cell-content:focus {
+  background: #fff;
+  box-shadow: 0 0 0 2px #6c757d;
+  z-index: 2;
+  position: relative;
+}
+.cell-content.readonly {
+  cursor: not-allowed;
+  opacity: 0.7;
+  background: #f9f9f9;
+}
+
+/* ── Unit Code cell — locked / read-only but selectable ─────────────────────── */
+.cell-content.unit-code-locked {
+  cursor: default;
+  color: #444;
+  user-select: text;
+  background: transparent;
+  pointer-events: auto;
+}
+.cell-content.unit-code-locked:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #dc3545;
+  background: #fff5f5;
+  border-radius: 3px;
+}
+
+.cell-select {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+  padding: 2px 4px;
+  text-align: center;
+}
+.cell-select:focus { background: white; }
+
+/* ── Drag Handle ─────────────────────────────────────────────────────────────── */
+.drag-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #888 0%, #666 100%);
+  cursor: crosshair;
+  opacity: 0;
+  border-radius: 2px 0 0 0;
+  z-index: 9;
+}
+.inv-td:hover .drag-handle { opacity: 1; }
+.inv-td.drag-highlight {
+  background: #e0e0e0 !important;
+  box-shadow: inset 0 0 0 2px #888 !important;
+}
+
+/* ── Multi-Select ────────────────────────────────────────────────────────────── */
+.inv-td.multi-select-highlight {
+  background: #b3d7ff !important;
+  box-shadow: inset 0 0 0 2px #007bff !important;
+}
+
+/* ── Filter Menu ─────────────────────────────────────────────────────────────── */
+.filter-menu {
+  position: fixed;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  min-width: 280px;
+  z-index: 1000;
+  display: none;
+}
+.filter-menu.active { display: block; }
+.filter-header {
+  padding: 10px;
+  background: #6c757d;
+  color: white;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filter-header h4 { margin: 0; font-size: 14px; }
+.filter-body { padding: 10px; max-height: 300px; overflow-y: auto; }
+.filter-search {
+  width: 100%;
+  padding: 5px 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.filter-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 4px;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 3px;
+}
+.filter-options label:hover { background: #f1f3f5; }
+.filter-actions {
+  padding: 8px 10px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 6px;
+}
+.filter-actions .action-btn { flex: 1; }
+
+/* ── Range Filter ────────────────────────────────────────────────────────────── */
+.range-filter-container {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f9f9f9;
+}
+.range-input-group { display: flex; gap: 8px; align-items: center; }
+.range-input-group label { min-width: 40px; font-size: 12px; color: #555; }
+.range-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.range-placeholder { font-size: 10px; color: #888; text-align: center; margin-top: 2px; font-style: italic; }
+.range-apply-btn {
+  padding: 6px 12px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.range-apply-btn:hover { background: #5a6268; }
+
+/* ── Date Filter ─────────────────────────────────────────────────────────────── */
+.year-group { border-bottom: 1px solid #eee; margin-bottom: 2px; }
+.year-header {
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+.year-header:hover { background: #e9ecef; }
+.year-header label { cursor: pointer; display: flex; align-items: center; gap: 6px; flex: 1; }
+.year-toggle { margin-left: auto; color: #6c757d; transition: transform 0.2s; font-size: 12px; font-style: normal; }
+.year-toggle.open { transform: rotate(180deg); }
+.month-container { padding-left: 20px; display: none; }
+.month-container.show { display: block; }
+.month-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 4px;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 3px;
+}
+.month-item:hover { background: #f1f3f5; }
+
+/* ── Pagination ──────────────────────────────────────────────────────────────── */
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 15px;
+  background: white;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+.pagination-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: nowrap;
+}
+
+.page-btn {
+  padding: 4px 9px;
+  border: 1px solid #6c757d;
+  background: white;
+  color: #6c757d;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: all 0.2s;
+  font-size: 13px;
+  min-width: 32px;
+  text-align: center;
+  line-height: 1.4;
+}
+.page-btn:hover:not(:disabled) { background: #6c757d; color: white; }
+.page-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.page-btn-active {
+  background: #6c757d !important;
+  color: white !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.page-ellipsis {
+  padding: 0 4px;
+  color: #999;
+  font-size: 14px;
+  line-height: 28px;
+  user-select: none;
+}
+
+/* ── Column Panel ────────────────────────────────────────────────────────────── */
+.column-panel {
+  position: fixed;
+  right: -280px;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: right 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.column-panel.active { right: 0; }
+.panel-head {
+  padding: 15px;
+  background: #6c757d;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-head h3 { margin: 0; font-size: 16px; display: flex; align-items: center; }
+.panel-close-btn { background: none; border: none; color: white; cursor: pointer; font-size: 18px; line-height: 1; padding: 0; }
+.panel-search-row { padding: 12px 15px; border-bottom: 1px solid #eee; }
+.panel-search {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.panel-btn-row { display: flex; gap: 6px; }
+.panel-body { padding: 4px; overflow-y: auto; flex: 1; }
+.col-item { padding: 7px 10px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; cursor: pointer; font-size: 13px; }
+.col-item:hover { background: #f8f9fa; }
+.col-item label { cursor: pointer; flex: 1; display: flex; align-items: center; gap: 8px; }
+
+/* ── No Data ─────────────────────────────────────────────────────────────────── */
+.no-data { padding: 40px; text-align: center; color: #777; font-size: 16px; }
+
+/* ── Toast (fallback) ────────────────────────────────────────────────────────── */
+.toast-container { position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 9999; pointer-events: none; }
+.toast {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  min-width: 220px;
+  animation: toastIn 0.25s ease;
+  pointer-events: auto;
+  border-left: 4px solid #6c757d;
+}
+.toast.toast-success { border-left-color: #28a745; }
+.toast.toast-error   { border-left-color: #dc3545; }
+.toast.toast-info    { border-left-color: #17a2b8; }
+.toast-icon { font-size: 18px; }
+.toast.toast-success .toast-icon { color: #28a745; }
+.toast.toast-error   .toast-icon { color: #dc3545; }
+.toast.toast-info    .toast-icon { color: #17a2b8; }
+@keyframes toastIn { from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:translateX(0); } }
+
+/* ── Alert Modal (fallback) ──────────────────────────────────────────────────── */
+.alert-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9998; display: flex; align-items: center; justify-content: center; }
+.alert-box {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  min-width: 320px;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  animation: alertIn 0.25s ease;
+}
+.alert-box .alert-icon { font-size: 48px; margin-bottom: 12px; }
+.alert-box h3 { margin: 0 0 8px; font-size: 20px; color: #333; }
+.alert-box p  { margin: 0 0 20px; color: #666; font-size: 14px; }
+.alert-box button { padding: 9px 28px; background: #6c757d; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: bold; }
+.alert-box button:hover { background: #5a6268; }
+@keyframes alertIn { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────────── */
+.table-container::-webkit-scrollbar { width: 8px; height: 8px; }
+.table-container::-webkit-scrollbar-track { background: #f1f1f1; }
+.table-container::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 4px; }
+.table-container::-webkit-scrollbar-thumb:hover { background: #6c757d; }
+
+/* ── Mobile tweaks ───────────────────────────────────────────────────────────── */
+/*
+ * On narrow viewports the table-container must still be the scroll host.
+ * We explicitly clamp max-height and ensure the sticky column shadow is
+ * visible enough to act as a "wall" indicator.
+ */
+@media (max-width: 768px) {
+  .table-container {
+    max-height: 60vh;
+    /* Stronger shadow on mobile so the fixed column boundary is obvious */
+  }
+
+  .td-fixed {
+    box-shadow: 3px 0 8px rgba(0,0,0,0.18);
+  }
+
+  .th-fixed {
+    box-shadow: 3px 0 8px rgba(0,0,0,0.25);
+  }
+
+  .inv-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,984 @@
+/* Sales Progress Container */
+.delivery-plan-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: var(--color-bg-primary);
+  padding: var(--space-lg);
+}
+
+
+
+/* Year Tabs */
+.year-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  background: var(--color-bg-secondary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+.year-tab {
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.year-tab.active {
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  color: white;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.year-tab:hover:not(.active) {
+  background: var(--color-bg-tertiary);
+}
+
+/* Period Selector (Comparison Mode) */
+.period-selector-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.period-selector-box {
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.period-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.remove-period-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--color-danger, #dc3545);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.remove-period-btn:hover {
+  background: #c82333;
+  transform: scale(1.15);
+}
+
+.period-year-select {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: var(--space-md);
+}
+
+.period-year-select:hover {
+  border-color: var(--color-primary);
+}
+
+.period-year-select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.month-selection {
+  margin-top: var(--space-md);
+}
+
+.month-selection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+}
+
+.select-all-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.select-all-btn:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.month-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--space-xs);
+  max-height: 200px;
+  overflow-y: auto;
+  padding: var(--space-sm);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+}
+
+.month-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.month-checkbox-label:hover {
+  background: var(--color-bg-secondary);
+}
+
+.month-checkbox-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* Add Period Box */
+.add-period-box {
+  background: transparent;
+  border: 3px dashed var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  transition: all var(--transition-fast);
+}
+
+.add-period-box:hover {
+  background: rgba(74, 144, 226, 0.05);
+  border-color: #357ABD;
+}
+
+.add-period-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.add-period-btn:hover {
+  transform: scale(1.05);
+  color: #357ABD;
+}
+
+.add-period-icon {
+  width: 50px;
+  height: 50px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 300;
+  transition: all var(--transition-fast);
+}
+
+.add-period-btn:hover .add-period-icon {
+  background: var(--color-primary);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.add-period-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.delivery-plan-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.expand-controls {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.dropdown-controls {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.control-btn {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.control-btn:hover {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.select-periods-btn {
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  color: white;
+  border-color: transparent;
+}
+
+.select-periods-btn:hover {
+  background: linear-gradient(135deg, #357ABD, #2E6BA8);
+  color: white;
+  border-color: transparent;
+}
+
+.years-analysis-btn {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+  color: white;
+  border-color: transparent;
+}
+
+.years-analysis-btn:hover {
+  background: linear-gradient(135deg, #1e7e34, #155724);
+  color: white;
+  border-color: transparent;
+}
+
+.reset-btn {
+  background: var(--color-danger, #dc3545);
+  color: white;
+  border-color: transparent;
+}
+
+.reset-btn:hover {
+  background: #c82333;
+  color: white;
+  border-color: transparent;
+}
+
+.row-toggle,
+.column-toggle {
+  position: relative;
+}
+
+.row-dropdown,
+.column-dropdown {
+  display: block;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-sm);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-md);
+  min-width: 220px;
+  z-index: 100;
+}
+
+.dropdown-section h4 {
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--space-xs);
+}
+
+.row-dropdown label,
+.column-dropdown label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  transition: background var(--transition-fast);
+  border-radius: var(--radius-sm);
+}
+
+.row-dropdown label:hover:not(:has(input:disabled)),
+.column-dropdown label:hover {
+  background: var(--color-bg-secondary);
+}
+
+.row-dropdown label:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.row-dropdown input[type="checkbox"],
+.column-dropdown input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+}
+
+.delivery-plan-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 70vh;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.delivery-plan-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.delivery-plan-scroll::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+  border-radius: 4px;
+}
+
+.delivery-plan-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: 4px;
+}
+
+.delivery-plan-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+.delivery-plan-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
+}
+
+/* Month Header Row */
+.month-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 12;
+}
+
+.group-header-cell {
+  position: sticky;
+  left: 0;
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  color: white;
+  padding: var(--space-md);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: left;
+  /* border-right: 2px solid rgba(255, 255, 255, 0.2); */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 13;
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+
+.month-header {
+  padding: var(--space-md);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  color: white;
+  white-space: nowrap;
+}
+
+/* Column Header Row */
+.column-header-row {
+  position: sticky;
+  top: 45px;
+  z-index: 11;
+  background: var(--color-bg-secondary);
+}
+
+.sub-header {
+  padding: var(--space-sm) var(--space-md);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border-light);
+  /* border-right: 1px solid var(--color-border-light); */
+  background: var(--color-bg-secondary);
+  white-space: nowrap;
+}
+
+/* Data Rows */
+.data-row {
+  transition: background var(--transition-fast);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.data-row:hover {
+  background: rgba(74, 144, 226, 0.05);
+}
+
+.data-row.level-0 {
+  background: rgb(236, 245, 255);
+  font-weight: 600;
+}
+
+.data-row.level-1 {
+  background: rgb(236, 245, 255);
+  font-weight: 500;
+}
+
+.data-row.level-2 {
+  background: var(--color-bg-primary);
+}
+
+/* Group Cell */
+.group-cell {
+  position: sticky;
+  left: 0;
+  background: inherit;
+  z-index: 5;
+  min-width: 200px;
+  max-width: 350px;
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  border-right: 1px solid rgb(220, 221, 221);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.group-cell::-webkit-scrollbar {
+  height: 4px;
+}
+
+.group-cell::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+  border-radius: 2px;
+}
+
+.group-cell::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: 2px;
+}
+
+.expand-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.expand-btn:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Level Labels */
+.level-0-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.level-1-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.level-2-label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* Metric Cells */
+.metric-cell {
+  padding: var(--space-sm) var(--space-md);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  border-right: 1px solid var(--color-border-light);
+  font-size: 0.85rem;
+  /* min-width: 90px;
+  max-width: 140px; */
+}
+
+
+
+/* Month Separator - Simple CLEAR LINE between ALL months */
+.month-separator {
+  border-left: 2px solid #4A90E2 !important;
+  position: relative;
+}
+
+/* Simple Separator - THIN LINE between every 2 months/periods */
+.simple-separator {
+  border-left: 1px solid var(--color-border-medium, #ddd) !important;
+}
+
+/* Fix column width when only 1 month displayed */
+.delivery-plan-table {
+  table-layout: auto;
+}
+
+.month-header {
+  min-width: 140px;
+  max-width: 220px;
+}
+
+.sub-header {
+  min-width: 90px;
+  max-width: 140px;
+  white-space: nowrap;
+}
+
+/* Dash cells (no progress) */
+.metric-cell:has-text("-") {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .delivery-plan-controls {
+    justify-content: center;
+  }
+
+  .dropdown-controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .year-tabs {
+    justify-content: center;
+  }
+
+  .group-cell {
+    min-width: 180px;
+    max-width: 250px;
+  }
+
+  .group-header-cell {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .delivery-plan-container {
+    padding: var(--space-md);
+  }
+  .delivery-plan-controls {
+    justify-content: space-between;
+  }
+
+  .year-tabs {
+    gap: 4px;
+  }
+
+  .year-tab {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  .period-selector-container {
+    grid-template-columns: 1fr;
+  }
+
+  .month-checkboxes {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    max-height: 150px;
+  }
+
+  .control-btn {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  .group-cell {
+    min-width: 150px;
+    max-width: 200px;
+    font-size: 0.85rem;
+  }
+
+  .group-header-cell {
+    min-width: 150px;
+    font-size: 0.85rem;
+  }
+
+  .month-header {
+    font-size: 0.75rem;
+    padding: var(--space-sm);
+  }
+
+  .sub-header {
+    font-size: 0.7rem;
+  }
+
+  .metric-cell {
+    font-size: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  /* Center dropdowns on mobile */
+  .row-dropdown,
+  .column-dropdown {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Dark Mode */
+[data-theme="dark"] .group-header-cell,
+[data-theme="dark"] .month-header {
+  background: linear-gradient(135deg, #2E6BA8, #1E4A7A);
+}
+
+[data-theme="dark"] .data-row.level-0 {
+  background: rgba(46, 107, 168, 0.12);
+}
+
+[data-theme="dark"] .data-row.level-1 {
+  background: rgba(46, 107, 168, 0.06);
+}
+
+[data-theme="dark"] .data-row:hover {
+  background: rgba(46, 107, 168, 0.1);
+}
+
+/* Print */
+@media print {
+  .year-tabs,
+  .delivery-plan-controls {
+    display: none;
+  }
+
+  .delivery-plan-scroll {
+    overflow: visible;
+    max-height: none;
+    border: none;
+  }
+
+  .expand-btn {
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .delivery-plan-controls {
+    justify-content: center;
+  }
+
+  .dropdown-controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .year-tabs {
+    justify-content: center;
+  }
+
+  .group-cell {
+    min-width: 180px;
+    max-width: 250px;
+  }
+
+  .group-header-cell {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .delivery-plan-container {
+    padding: var(--space-md);
+  }
+
+  /* Mobile: Control buttons layout - 2-3 buttons per line */
+  .delivery-plan-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .dropdown-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .dropdown-controls > * {
+    flex: 1;
+    min-width: calc(50% - 3px);
+    max-width: calc(50% - 3px);
+  }
+
+  /* For larger mobile screens, show 3 buttons per line */
+  @media (min-width: 480px) and (max-width: 768px) {
+    .dropdown-controls > * {
+      min-width: calc(33.333% - 4px);
+      max-width: calc(33.333% - 4px);
+    }
+  }
+
+  .control-btn {
+    font-size: 0.75rem;
+    padding: 8px 6px;
+    min-height: 36px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .year-tabs {
+    gap: 4px;
+    margin-bottom: var(--space-md);
+  }
+
+  .year-tab {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    flex: 1;
+    min-width: calc(25% - 4px);
+    text-align: center;
+  }
+
+  .period-selector-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .month-checkboxes {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    max-height: 150px;
+  }
+
+  /* Mobile: Adjust first column width */
+  .group-cell {
+    min-width: 180px !important;
+    max-width: 220px !important;
+    font-size: 0.85rem;
+    padding: 10px 8px;
+  }
+
+  .group-header-cell {
+    min-width: 180px !important;
+    max-width: 220px !important;
+    font-size: 0.85rem;
+    padding: 12px 8px;
+  }
+
+  /* Mobile: Smaller table size */
+  .delivery-plan-scroll {
+    max-height: 60vh;
+    font-size: 0.8rem;
+  }
+
+  .delivery-plan-table {
+    font-size: 0.8rem;
+  }
+
+  .month-header {
+    font-size: 0.7rem;
+    padding: 10px 6px;
+    min-width: 100px;
+    max-width: 120px;
+  }
+
+  .sub-header {
+    font-size: 0.65rem;
+    padding: 8px 6px;
+    min-width: 70px;
+    max-width: 90px;
+  }
+
+  .metric-cell {
+    font-size: 0.7rem;
+    padding: 8px 6px;
+    min-width: 70px;
+    max-width: 90px;
+  }
+
+  .level-0-label {
+    font-size: 0.85rem;
+  }
+
+  .level-1-label {
+    font-size: 0.8rem;
+  }
+
+  .level-2-label {
+    font-size: 0.75rem;
+  }
+
+  /* Mobile: Center dropdowns */
+  .row-dropdown,
+  .column-dropdown {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    z-index: 1000;
+  }
+
+  .row-dropdown label,
+  .column-dropdown label {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Mobile: Adjust period selector boxes */
+  .period-selector-box {
+    padding: var(--space-md);
+  }
+
+  .add-period-btn {
+    padding: var(--space-md);
+  }
+
+  .add-period-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .add-period-text {
+    font-size: 0.8rem;
+  }
+
+  /* Ensure proper sticky positioning on mobile */
+  .month-header-row,
+  .column-header-row,
+  .group-header-cell,
+  .group-cell {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+/* Dark Mode */
+[data-theme="dark"] .group-header-cell,
+[data-theme="dark"] .month-header {
+  background: linear-gradient(135deg, #2E6BA8, #1E4A7A);
+}
+
+[data-theme="dark"] .data-row.level-0 {
+  background: rgba(46, 107, 168, 0.12);
+}
+
+[data-theme="dark"] .data-row.level-1 {
+  background: rgba(46, 107, 168, 0.06);
+}
+
+[data-theme="dark"] .data-row:hover {
+  background: rgba(46, 107, 168, 0.1);
+}
+
+/* Print */
+@media print {
+  .year-tabs,
+  .delivery-plan-controls {
+    display: none;
+  }
+
+  .delivery-plan-scroll {
+    overflow: visible;
+    max-height: none;
+    border: none;
+  }
+
+  .expand-btn {
+    display: none;
+  }
+}

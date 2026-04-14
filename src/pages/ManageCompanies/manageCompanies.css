@@ -1,0 +1,468 @@
+/* =========================
+   Manage Companies (scoped)
+   ========================= */
+
+.manage-companies{
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* important */
+   /* margin-top: 60px; */
+   font-family: "Times New Roman", Times, serif;
+}
+
+/* Header */
+.manage-companies .mc-topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.manage-companies .mc-topbar .lux-title{
+  margin: 0;
+  min-width: 0;
+}
+
+.manage-companies .mc-create{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Search */
+.manage-companies .mc-filters{
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  padding: 0 12px;
+}
+
+.manage-companies .mc-search{
+  width: min(920px, 96vw);
+}
+
+/* Table wrapper */
+.manage-companies .mc-scroll{
+  width: 100%;
+  overflow-x: auto; /* responsive tables */
+  padding-bottom: 4px;
+}
+
+/* Table */
+.manage-companies .mc-table{
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* fit content more naturally */
+  background: #f8f6f6;
+}
+
+/* Cells */
+.manage-companies .mc-table th,
+.manage-companies .mc-table td{
+  padding: 10px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Header text visible */
+.manage-companies .mc-table thead th{
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  letter-spacing: 0.5px;
+}
+
+/* Numeric columns */
+.manage-companies .mc-table th:nth-child(4),
+.manage-companies .mc-table td:nth-child(4),
+.manage-companies .mc-table th:nth-child(5),
+.manage-companies .mc-table td:nth-child(5),
+.manage-companies .mc-table th:nth-child(6),
+.manage-companies .mc-table td:nth-child(6){
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Inputs/selects */
+.manage-companies .mc-table .lux-cell-input,
+.manage-companies .mc-table .lux-cell-select{
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Name/date sizing */
+.manage-companies .mc-table td:nth-child(1) .lux-cell-input{
+  width: 200px;
+  max-width: 160px;
+}
+
+.manage-companies .mc-table td:nth-child(3) .lux-cell-input{
+  max-width: 140px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Logo picker */
+.manage-companies .mc-logo-wrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.manage-companies .mc-logo{
+  width: 54px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.manage-companies .mc-logo-img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+
+.manage-companies .mc-logo-ph{
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.manage-companies .mc-upload{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 2px solid var(--orange-primary);
+  color: var(--orange-primary);
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.manage-companies .mc-upload:hover{
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  color: #fff;
+}
+
+/* Actions beside each other */
+.manage-companies .mc-actions{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  /* background-color: #f59e0b; */
+}
+
+.manage-companies .mc-actions .btn{
+  padding: 6px 10px;
+}
+
+/* Sync button + spinner */
+.manage-companies .lux-btn.sync{
+  background: #f59e0b !important;
+  border-color: #f59e0b;
+  color: #fff;
+}
+
+
+.manage-companies .lux-btn.sync:hover{
+  background: #d97706;
+  border-color: #d97706;
+}
+.manage-companies .lux-btn.syncing{
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: #111;
+  opacity: 0.9;
+}
+
+
+
+.manage-companies .mc-spinner{
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.25);
+  border-top-color: rgba(0,0,0,0.85);
+  display: inline-block;
+  margin-right: 8px;
+  animation: mcspin 0.8s linear infinite;
+}
+
+@keyframes mcspin{ to { transform: rotate(360deg); } }
+
+/* Responsive tweaks */
+@media (max-width: 768px){
+  .manage-companies .mc-table th,
+  .manage-companies .mc-table td{
+    padding: 8px 8px;
+  }
+
+  .manage-companies .mc-table td:nth-child(1) .lux-cell-input{
+    width: 180px;
+    max-width: 180px;
+  }
+
+  .manage-companies .mc-actions .btn{
+    padding: 6px 8px;
+  }
+}
+
+/* Responsive modals */
+.manage-companies .mu-modal{
+  width: min(900px, 92vw);
+  max-width: 92vw;
+  box-sizing: border-box;
+}
+
+.manage-companies .mc-mobile-modal{
+  width: min(520px, 92vw);
+}
+
+/* Mobile list hidden on desktop */
+.manage-companies .mc-mobile-list{
+  display: none;
+}
+
+/* Mobile actions inside modal */
+.manage-companies .mc-mobile-actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* On mobile: show list, hide table */
+@media (max-width: 768px){
+  .manage-companies .mc-scroll{ display: none; }
+
+  .manage-companies .mc-mobile-list{
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .manage-companies .mc-mobile-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px;
+    border: 1px solid rgba(0,0,0,0.10);
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .manage-companies .mc-mobile-name{
+    font-weight: 800;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 75%;
+  }
+
+  .manage-companies .mc-mobile-edit{
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #fff;
+    cursor: pointer;
+  }
+}
+
+
+.manage-companies .mc-mini-box{
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fff;
+}
+.manage-companies .mc-mini-label{
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+.manage-companies .mc-mini-value{
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text-primary);
+}
+
+/* Mobile: full width search */
+@media (max-width: 768px){
+  .manage-companies .mc-filters{
+    justify-content: stretch;
+    margin-top: 10px;
+    padding: 0 12px;
+  }
+
+  .manage-companies .mc-search{
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 420px){
+  .manage-companies .mc-filters{
+    padding: 0 10px;
+  }
+}
+
+/* Companies edit button styling */
+.manage-companies .mc-mobile-edit{
+  border: 2px solid #198754;
+  color: #198754;
+}
+.manage-companies .mc-mobile-edit:hover{
+  background: #198754;
+  color: #fff;
+}
+
+/* keep warn buttons aligned */
+.manage-companies .lux-btn.warn{
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Logo picker helpers (used by LogoPicker + MobileEditModal) */
+.mc-file-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.mc-logo-clickwrap{
+  position: relative;
+  display: inline-block;
+}
+
+.mc-logo-click{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+
+.mc-logo-edit-badge{
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  background: #f59e0b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: translateY(2px);
+  transition: 160ms ease;
+  pointer-events: none;
+}
+
+.mc-logo-click:hover .mc-logo-edit-badge,
+.mc-logo-click:focus-within .mc-logo-edit-badge{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Config modal: allow full scroll on mobile, keep footer visible */
+.manage-companies .mc-config-modal{
+  width: min(900px, 92vw);
+}
+
+/* Small screens: modal becomes a flex column with scrollable body */
+@media (max-width: 768px){
+  .manage-companies .mc-config-modal{
+    width: 92vw;
+    max-height: 90vh;           /* keep it inside viewport */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .manage-companies .mc-config-modal .mu-modal-header{
+    flex: 0 0 auto;             /* fixed header */
+  }
+
+  .manage-companies .mc-config-modal .mu-modal-body{
+    flex: 1 1 auto;             /* take remaining height */
+    overflow-y: auto;           /* scroll long forms */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .manage-companies .mc-config-modal .mu-modal-footer{
+    flex: 0 0 auto;             /* fixed footer */
+    position: sticky;           /* stays visible when body scrolls */
+    bottom: 0;
+    background: #ffffff;
+    z-index: 5;
+  }
+}
+
+.manage-companies .cu-two{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 768px){
+  .manage-companies .cu-two{
+    grid-template-columns: 1fr; /* stack fields */
+  }
+}
+
+.mc-mobile-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+
+
+
+.manage-companies .warn{
+  background: #9e6504 !important;
+  border-color: #f59e0b;
+  color: #fff;
+}
+
+
+
+.manage-companies .danger{
+  background: #f81d1d !important;
+  border-color: #f59e0b;
+  color: #fff;
+}
+
+
+.manage-companies .ux-btn .muu-savee {
+  background: var(--orange-primary, #f57c00) !important;
+  border-color: var(--orange-primary, #f57c00);
+}

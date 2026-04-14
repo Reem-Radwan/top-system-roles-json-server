@@ -1,0 +1,894 @@
+/* src/pages/ManageUsers.css - Modern Redesign (Laptop-fit, no horizontal scroll) */
+
+html, body {
+  font-family: "Times New Roman", Times, serif;
+}
+
+:root {
+  /* Modern Color Palette */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f1f3f5;
+  --bg-card: #ffffff;
+
+  --text-primary: #1a1d21;
+  --text-secondary: #5f666d;
+  --text-muted: #8b949e;
+
+  --border-light: #e1e4e8;
+  --border-medium: #d0d7de;
+
+  /* Accent Colors - Light Dark Orange Theme */
+  /* --orange-primary: #f57c00; */
+  --orange-primary:#d97706;
+  --orange-light: #ffb74d;
+  --orange-dark: #d97706;
+
+  /* Status Colors */
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --info: #17a2b8;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* Base Layout */
+.lux-page {
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  min-height: calc(100vh - 20px);
+  font-family: "Times New Roman", Times, serif;
+  /* margin-top: 60px; */
+}
+
+/* Top Bar with Toggle */
+.lux-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  
+}
+
+.lux-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.lux-title::before {
+  content: "👥";
+  font-size: 1.5rem;
+}
+
+.lux-switch {
+  display: flex;
+  gap: var(--space-xs);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs);
+  border: 1px solid var(--border-light);
+}
+
+.lux-tab {
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.95rem;
+  min-width: 160px;
+}
+
+.lux-tab:hover {
+  background: rgba(255, 183, 77, 0.1);
+  color: var(--orange-dark);
+}
+
+.lux-tab.active {
+  background: var(--orange-primary);
+  color: white;
+  box-shadow: 0 2px 4px rgba(245, 124, 0, 0.2);
+}
+
+/* Filters Section */
+.lux-filters {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--bg-card);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+
+
+/* Filters Section */
+.luxs-filters {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  /* background: var(--bg-card); */
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+  /* box-shadow: var(--shadow-sm); */
+  /* border: 1px solid var(--border-light); */
+}
+
+.lux-input {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  min-width: 200px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.lux-input:focus {
+  border-color: var(--orange-primary);
+  box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.1);
+}
+
+.lux-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Groups Container */
+.lux-groups {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.lux-group {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  transition: all var(--transition-normal);
+}
+
+.lux-group:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.lux-group-header {
+  width: 100%;
+  text-align: left;
+  padding: var(--space-md) var(--space-lg);
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  background: linear-gradient(135deg, var(--orange-bg), #fff8f0);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+  transition: all var(--transition-fast);
+}
+
+.lux-group-header:hover {
+  background: linear-gradient(135deg, #e4e0db, #b3afa9);
+}
+
+.lux-group-role {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.lux-group-role::before {
+  content: "▸";
+  transition: transform var(--transition-fast);
+}
+
+.lux-group-header:hover .lux-group-role::before {
+  color: var(--orange-primary);
+}
+
+.lux-group[aria-expanded="true"] .lux-group-role::before {
+  transform: rotate(90deg);
+}
+
+.lux-group-meta {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+}
+
+/* Table Wrapper */
+.lux-tablewrap {
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  animation: slideDown 0.3s ease-out;
+}
+
+/* IMPORTANT: disable horizontal scroll on laptop/desktop */
+.lux-scroll {
+  overflow-x: hidden; /* was auto */
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--bg-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* Modern Table - fit screen */
+.lux-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed; /* keeps columns within table width */ /* [web:152] */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.lux-table th {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--border-light);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  white-space: normal; /* allow wrapping */ /* [web:163] */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.lux-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-primary);
+  transition: background var(--transition-fast);
+
+  white-space: normal; /* allow wrapping */ /* [web:163] */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  vertical-align: middle;
+}
+
+.lux-table tbody tr {
+  transition: all var(--transition-fast);
+}
+
+.lux-table tbody tr:hover {
+  background: var(--orange-bg);
+}
+
+.lux-table tbody tr:hover td {
+  background: var(--orange-bg);
+}
+
+/* Role Pill */
+.lux-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  color: var(--orange-dark);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  border: 1px solid #ffcc80;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  max-width: 100%;
+  white-space: normal;
+}
+
+/* Cell Inputs - shrink to cell width */
+.lux-cell-input,
+.lux-cell-select {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-medium);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  padding: 8px 8px;
+
+  width: 100%;
+  min-width: 0; /* allows the input to shrink inside fixed table */ /* [web:152] */
+
+  outline: none;
+  font-size: 0.9375rem;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.lux-cell-input:focus,
+.lux-cell-select:focus {
+  border-color: var(--orange-primary);
+  box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.1);
+}
+
+.lux-cell-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235f666d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+}
+
+/* Sticky Column - reduce width so it fits laptop */
+.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background: var(--bg-primary);
+  box-shadow: 8px 0 15px rgba(0, 0, 0, 0.05);
+  min-width: 120px; /* was 160px */
+}
+
+.lux-table thead .sticky-col {
+  background: var(--bg-secondary);
+  z-index: 20;
+}
+
+/* Action Buttons */
+.lux-btn {
+  background: white;
+  border: 2px solid var(--orange-primary);
+  color: var(--orange-primary);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  margin: 2px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lux-btn:hover {
+  background: var(--orange-primary);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(245, 124, 0, 0.2);
+}
+
+.lux-btn.danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.lux-btn.danger:hover {
+  background: var(--danger);
+  color: white;
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+.lux-btn.warn {
+  border-color: var(--warning);
+  color: #856404;
+}
+
+.lux-btn.warn:hover {
+  background: var(--warning);
+  color: #212529;
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2);
+}
+
+/* Make Actions column wrap instead of forcing width */
+.lux-table td:last-child {
+  white-space: normal;
+}
+
+.lux-table td:last-child .lux-btn {
+  flex-wrap: wrap;
+}
+
+/* Checkbox Styling */
+.lux-table input[type="checkbox"] {
+  width: 15px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--orange-primary);
+}
+
+/* Status Indicators */
+.lux-dash {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Empty State */
+.lux-empty-state {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border-light);
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.lux-loading {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
+  background-size: 1000px 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .lux-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lux-input {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .lux-page {
+    padding: var(--space-md);
+  }
+
+  .lux-topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .lux-switch {
+    width: 100%;
+  }
+
+  .lux-tab {
+    min-width: 0;
+    flex: 1;
+    text-align: center;
+  }
+
+  .lux-table th,
+  .lux-table td {
+    padding: 10px 10px;
+    font-size: 0.875rem;
+  }
+}
+
+/* Password input sizing (keep it compact but responsive) */
+.password-input {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Mobile group header */
+@media (max-width: 768px) {
+  .lux-group-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .lux-group-meta {
+    align-self: flex-start;
+  }
+}
+
+/* Animation for expanding/collapsing groups */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar (kept, even though overflow-x is hidden on desktop) */
+.lux-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.lux-scroll::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+.lux-scroll::-webkit-scrollbar-thumb {
+  background: var(--orange-light);
+  border-radius: 4px;
+}
+
+.lux-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-primary);
+}
+
+/* Icons for buttons */
+.lux-btn i {
+  font-size: 0.875rem;
+}
+
+/* Focus states for accessibility */
+.lux-tab:focus,
+.lux-input:focus,
+.lux-btn:focus,
+.lux-cell-input:focus,
+.lux-cell-select:focus {
+  outline: 2px solid var(--orange-primary);
+  outline-offset: 2px;
+}
+
+/* 6) Mobile list (no horizontal scroll) */
+.mu-mobile-list {
+  display: grid;
+  gap: 10px;
+}
+
+.mu-mobile-item {
+  border: 1px solid var(--border-light, #e1e4e8);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.mu-mobile-main {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mu-mobile-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.mu-mobile-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Modal */
+.mu-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+
+.mu-modal {
+  width: 100%;
+  max-width: 640px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.mu-modal-header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.mu-modal-title {
+  font-weight: 900;
+  color: #1a1d21;
+}
+
+.mu-modal-x {
+  border: 0;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.mu-modal-body {
+  padding: 14px;
+}
+
+.mu-form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.mu-label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+  color: #444;
+}
+
+.mu-label-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mu-field {
+  width: 100%;
+  border: 2px solid rgba(0,0,0,0.14);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.mu-field:focus {
+  border-color: var(--orange-primary, #f57c00);
+  box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.12);
+}
+
+.mu-hint {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.mu-dash {
+  color: #999;
+  font-weight: 700;
+}
+
+.mu-modal-footer {
+  padding: 12px 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.muu-save {
+  background: var(--orange-primary, #f57c00) !important;
+  border-color: var(--orange-primary, #f57c00);
+}
+
+/* Edit icon button (green) */
+.mu-more-icon {
+  border: 2px solid #198754;
+  background: #fff;
+  color: #198754;
+  border-radius: 10px;
+  width: 42px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.mu-more-icon:hover {
+  background: #198754;
+  color: #fff;
+}
+
+
+.mu-mobile-name-text{
+  flex: 1;
+  min-width: 0;
+
+  /* look like an input (read-only) */
+  background: var(--bg-primary);
+  border: 2px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  font-weight: 700;
+  color: var(--text-primary);
+
+  /* clean truncation */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px){
+  .muu-save:hover,
+  .muu-save:focus{
+    background: var(--orange-dark);
+    border-color: var(--orange-dark);
+  }
+
+  .muu-save:active{
+    background: var(--orange-dark);
+    border-color: var(--orange-dark);
+  }
+}
+
+@media (max-width: 768px){
+  .mu-modal input[type="checkbox"],
+  .mu-mobile-list input[type="checkbox"]{
+    accent-color: var(--orange-primary);
+  }
+}
+
+/* Force the modal Save button to be orange (no Bootstrap blue) */
+.btn.btn-primary.muu-save{
+  background: var(--orange-primary) !important;
+  border-color: var(--orange-primary) !important;
+  color: #fff !important;
+
+  /* Bootstrap v5 CSS variables override */
+  --bs-btn-bg: var(--orange-primary);
+  --bs-btn-border-color: var(--orange-primary);
+  --bs-btn-hover-bg: var(--orange-dark);
+  --bs-btn-hover-border-color: var(--orange-dark);
+  --bs-btn-active-bg: var(--orange-dark);
+  --bs-btn-active-border-color: var(--orange-dark);
+  --bs-btn-focus-shadow-rgb: 230, 81, 0; /* matches orange-dark */
+}
+
+/* Hover / focus / active states (covers mobile tap too) */
+.btn.btn-primary.muu-save:hover,
+.btn.btn-primary.muu-save:focus,
+.btn.btn-primary.muu-save:active,
+.btn.btn-primary.muu-save.active,
+.btn.btn-primary.muu-save:active:focus{
+  background: var(--orange-dark) !important;
+  border-color: var(--orange-dark) !important;
+  color: #fff !important;
+  box-shadow: none !important; /* remove the blue glow */
+  outline: none !important;
+}
+
+
+/* Right side in topbar: create button + switch */
+.lux-topbar-right{
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* Create user button fits the existing theme */
+.lux-create-btn{
+  background: white;
+  border: 2px solid var(--orange-primary);
+  color: var(--orange-primary);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.lux-create-btn:hover{
+  background: var(--orange-primary);
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(245, 124, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.lux-create-text{
+  display: inline;
+}
+
+/* On small screens keep it compact (icon only) */
+@media (max-width: 768px){
+  .lux-create-text{
+    display: none;
+  }
+}
+
+/* Bulk actions row appears only when a company is selected */
+.lux-bulk-actions{
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.lux-bulk-btn{
+  border: 2px solid var(--orange-primary);
+  background: #fff;
+  color: var(--orange-primary);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.lux-bulk-btn:hover{
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  color: #fff;
+}
+
+/* Optional: give different outline accents */
+.lux-bulk-btn.activate{
+  border-color: var(--success);
+  color: var(--success);
+}
+.lux-bulk-btn.activate:hover{
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+
+.lux-bulk-btn.deactivate{
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.lux-bulk-btn.deactivate:hover{
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+

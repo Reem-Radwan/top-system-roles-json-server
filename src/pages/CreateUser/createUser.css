@@ -1,0 +1,366 @@
+
+
+/* Create User page */
+.cu-subtitle{
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.cu-form{
+  display: grid;
+  gap: 12px;
+}
+
+/* Similar block style to your screenshots, inside the same card */
+.cu-block{
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  padding: 12px;
+}
+
+.cu-block-title{
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.cu-two{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 768px){
+  .cu-two{
+    grid-template-columns: 1fr;
+  }
+}
+
+.cu-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+/* CSV area */
+.cu-csv{
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.cu-csv-panel{
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  padding: 10px;
+}
+
+.cu-file{
+  width: 100%;
+}
+
+
+/* Create User: make the card/form smaller + centered */
+.cu-container{
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px){
+  .cu-container{
+    max-width: 100%;
+  }
+}
+
+/* tighter spacing */
+.cu-form{ gap: 10px; }
+.mu-field{ padding: 9px 10px; border-radius: 12px; }
+.cu-block{ padding: 10px; }
+
+
+/* Bigger (but not huge) */
+.cu-container{
+  max-width: 620px;
+  margin: 0 auto;
+}
+@media (max-width: 768px){
+  .cu-container{ max-width: 100%; }
+}
+
+/* One column layout */
+.cu-form{
+  display: grid;
+  gap: 12px;
+}
+
+/* Input with icons */
+.cu-inputwrap{
+  position: relative;
+}
+
+.cu-lefticon{
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.cu-input{
+  padding-left: 38px; /* space for left icon */
+}
+
+/* make room for eye icon button on right */
+.cu-input-rightpad{
+  padding-right: 44px;
+}
+
+.cu-eye{
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #fff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cu-eye:hover{
+  border-color: var(--orange-primary);
+  color: var(--orange-dark);
+}
+
+/* Keep your blocks consistent */
+.cu-block{
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  padding: 10px;
+}
+
+/* --- CSV compact styling (make sure this is LAST in ManageUsers.css) --- */
+.cu-csv-row{
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.cu-csv-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 10px;
+  border-radius: 10px;
+
+  border: 2px solid var(--orange-primary);
+  background: #fff;
+  color: var(--orange-primary);
+
+  font-weight: 800;
+  cursor: pointer;
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.cu-csv-btn:hover{
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  color: #fff;
+}
+
+.cu-csv-btn i{
+  font-size: 14px;
+}
+
+.cu-csv-btn-text{
+  display: inline;
+}
+
+@media (max-width: 480px){
+  .cu-csv-btn-text{ display: none; }
+}
+
+/* Mini panel (small) */
+.cu-csv-mini{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  padding: 8px;
+  border-radius: 12px;
+
+  border: 1px dashed var(--border-medium);
+  background: var(--bg-primary);
+}
+
+/* Prevent file input from being huge */
+.cu-file{
+  width: auto;
+  max-width: 260px;
+}
+
+.cu-file-name{
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+
+  background: rgba(245, 124, 0, 0.08);
+  border: 1px solid rgba(245, 124, 0, 0.25);
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cu-csv-hint{
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+
+.back-btn{
+  background-color:var(--orange-primary) ;
+  border: none;
+   display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn:hover{
+  background-color: var(--orange-dark);
+}
+
+
+/* Mobile topbar: title + actions stay on one row */
+@media (max-width: 768px){
+  .lux-topbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: nowrap; /* important: stop title/actions from stacking */
+  }
+
+  .lux-title{
+    margin: 0;
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .lux-topbar-right{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+
+  /* Make Create button icon-only on small screens so it fits */
+  .lux-create-btn{
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+  .lux-create-text{
+    display: none;
+  }
+
+  /* Optional: if the switch is too wide, hide it on very small screens */
+  @media (max-width: 420px){
+    .lux-switch{ display: none; }
+  }
+}
+
+.cu-top-actions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 768px){
+  .lux-topbar{
+    flex-wrap: nowrap; /* same idea */
+  }
+
+  /* Make back button smaller on mobile (optional) */
+  .back-btn{
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+
+  /* Optional: hide "Back" text to keep only icon */
+  /* .back-btn span{ display:none; } */
+}
+
+
+/* Keep title + back button on same line */
+.cu-topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* prevent title wrapping from pushing button down */
+.cu-topbar .lux-title{
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* optional: hide "Back" text on very small screens */
+@media (max-width: 420px){
+  .back-text{ display: none; }
+}
+
+
+.cu-perms{
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cu-check{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--bg-primary);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.cu-check input{
+  width: 16px;
+  height: 16px;
+}
+
+/* Orange checkboxes (Company User permissions) */
+.cu-check input[type="checkbox"]{
+  accent-color: var(--orange-primary);
+  color: white;
+}

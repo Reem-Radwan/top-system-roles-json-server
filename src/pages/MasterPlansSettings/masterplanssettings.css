@@ -1,0 +1,688 @@
+/* masterplanssettings.css — orange theme (settings / admin overlay)
+   Inherits all shared tokens from masterplans.css.
+   This file adds ONLY the settings-specific components:
+     • mps-crosshair cursor
+     • mps-tooltip  (single-unit & building)
+     • mps-backdrop + mps-add-form  (double-click "Add Position" dialog)
+     • mps-btn family
+     • mps-building-table
+   ────────────────────────────────────────────────────────────────────── */
+
+/* ── Shared font (mirrors masterplans.css) ── */
+* { font-family: 'Times New Roman', Times, serif; }
+
+/* ── Page Header ── */
+.masterplan-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 15px 15px;
+}
+
+.masterplan-page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.3px;
+}
+
+.masterplan-page-title i {
+  font-size: 22px;
+  color: #e07b00;
+}
+
+.masterplan-page-select-wrap {
+  flex: 1;
+  min-width: 220px;
+  max-width: 360px;
+}
+
+/* ── Searchable Project Select ── */
+.project-searchable-select { position: relative; width: 100%; }
+
+.project-select-trigger {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  min-height: 40px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+.project-select-trigger:hover,
+.project-select-trigger.open {
+  border-color: #e07b00;
+  box-shadow: 0 0 0 2px rgba(224, 123, 0, 0.15);
+}
+
+.project-select-value      { flex: 1; font-size: 14px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.project-select-value.placeholder { color: #aaa; }
+
+.project-select-actions    { display: flex; align-items: center; gap: 8px; margin-left: 8px; flex-shrink: 0; }
+
+.project-select-clear      { color: #999; cursor: pointer; font-size: 13px; padding: 2px 4px; border-radius: 3px; transition: color 0.2s, background 0.2s; }
+.project-select-clear:hover { color: #dc3545; background: #fef0f0; }
+
+.project-select-arrow      { color: #999; font-size: 12px; transition: transform 0.2s; }
+.project-select-arrow.rotated { transform: rotate(180deg); }
+
+.project-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px); left: 0; right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  z-index: 50000;
+  overflow: hidden;
+}
+
+.project-select-search {
+  display: flex; align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+  gap: 8px;
+}
+.project-select-search i     { color: #aaa; font-size: 13px; flex-shrink: 0; }
+.project-select-search input { border: none; outline: none; flex: 1; font-size: 13px; background: transparent; color: #333; }
+
+.project-select-options { max-height: 220px; overflow-y: auto; }
+
+.project-select-option {
+  display: flex; align-items: center;
+  padding: 10px 14px;
+  font-size: 14px; cursor: pointer; color: #333;
+  transition: background 0.15s;
+}
+.project-select-option:hover    { background: #fff5e6; }
+.project-select-option.selected { background: #fff0d6; font-weight: 600; color: #e07b00; }
+.project-select-no-results      { padding: 14px; text-align: center; color: #aaa; font-size: 13px; }
+
+/* ── Container / image / loading — identical to masterplans.css ── */
+.unit-mapping-container   { max-width: 100%; margin: 0 auto; padding: 20px; }
+
+.masterplan-container {
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: visible;
+  border: 1px solid #ddd;
+  display: block;
+  margin-left: auto; margin-right: auto;
+  height: auto;
+  cursor: grab;
+  touch-action: none;
+  margin: 0 15px;
+}
+.masterplan-container:active { cursor: grabbing; }
+
+#masterplan-wrapper {
+  transform-origin: top left;
+  width: 100%; display: block; overflow: visible;
+}
+
+.masterplan-image-wrapper {
+  position: relative; display: block;
+  line-height: 0; width: 100%;
+  transform-origin: top left;
+}
+
+.masterplan-image {
+  display: block; width: 100%; height: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.masterplan-image.loaded { opacity: 1; }
+
+/*
+  ── FIX: In the settings page the event listener is on .masterplan-image-wrapper
+     (the div), NOT on the <img> which inherits pointer-events:none from the
+     shared masterplans.css. We apply crosshair cursor to the wrapper div only
+     when the settings page adds the .mps-crosshair class to it.
+     The <img> keeps pointer-events:none so it cannot accidentally absorb clicks
+     intended for the wrapper or the markers above it.
+*/
+.masterplan-image-wrapper.mps-crosshair {
+  cursor: crosshair !important;
+  pointer-events: auto;          /* wrapper IS clickable / double-clickable  */
+}
+
+/* The img itself must remain non-interactive so events bubble to the wrapper */
+.masterplan-image-wrapper.mps-crosshair .masterplan-image {
+  pointer-events: none;          /* img is decorative; wrapper handles events */
+  cursor: inherit;
+}
+
+/* ── Messages ── */
+.no-masterplan {
+  text-align: center; padding: 40px; color: #999;
+  display: flex; flex-direction: column; align-items: center;
+  width: 100%; box-sizing: border-box;
+}
+.no-masterplan p { margin: 0; font-size: 15px; }
+
+.loading      { text-align: center; padding: 20px; width: 100%; box-sizing: border-box; }
+.loading p    { font-weight: bold; color: #e07b00; animation: masterplan-pulse 1.5s infinite; }
+
+@keyframes masterplan-pulse {
+  0%   { opacity: 0.5; }
+  50%  { opacity: 1;   }
+  100% { opacity: 0.5; }
+}
+
+/* ── Unit Markers ── */
+.unit-marker {
+  position: absolute;
+  width: 26px; height: 26px;
+  background: #6c757d;
+  border: 2px solid #fff;
+  border-radius: 50% 50% 50% 0;
+  cursor: pointer;
+  transform-origin: 0% 100%;
+  transform: translate(0%, -100%) rotate(-45deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+  z-index: 10;
+  display: flex; justify-content: center; align-items: center;
+  line-height: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+.unit-marker span {
+  transform: rotate(45deg);
+  color: white; font-size: 8px; font-weight: bold;
+  white-space: nowrap; margin: 0; padding: 0;
+  text-align: center; display: block;
+}
+.unit-marker:after { display: none; }
+.unit-marker:hover { z-index: 20; border-color: #333; }
+
+.unit-marker.blocked      { background: #ffc107 !important; }
+.unit-marker.blocked span { color: #333 !important; }
+.unit-marker.building     { background: #e07b00 !important; }
+.unit-marker.available    { background: #28a745 !important; }
+.unit-marker.unavailable  { background: #dc3545 !important; }
+
+/* ── Zoom controls ── */
+.zoom-controls {
+  position: absolute; bottom: 16px; right: 16px;
+  z-index: 200; display: flex; flex-direction: column;
+  gap: 5px; pointer-events: auto;
+}
+.zoom-btn {
+  width: 38px; height: 38px;
+  background: #28a745; border: 1px solid #1e7e34;
+  border-radius: 4px; font-size: 18px; cursor: pointer;
+  display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,.2);
+  color: white; transition: background .15s;
+}
+.zoom-btn:hover  { background: #1e7e34; }
+.zoom-btn:active { background: #155724; }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MPS TOOLTIP  — appears on single-click of an existing pin
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.mps-tooltip {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18), 0 1px 4px rgba(0,0,0,.08);
+  z-index: 9999;
+  min-width: 240px;
+  width: max-content;
+  max-width: 300px;
+  text-align: left;
+  line-height: 1.4;
+  font-size: 12px;
+  overflow: hidden;
+  animation: mpsTooltipIn 0.15s ease;
+}
+
+@keyframes mpsTooltipIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ── Wide variant for buildings ── */
+.mps-tooltip-wide {
+  min-width: 300px;
+  max-width: min(480px, 94vw);
+}
+
+/* ── Tooltip header ── */
+.mps-tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px 9px;
+  background: #fff;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mps-tooltip-header span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Orange icon inside the header title */
+.mps-tooltip-header span:first-child i {
+  color: #e07b00;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.mps-tooltip-close {
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: #9ca3af;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+.mps-tooltip-close:hover {
+  color: #dc3545;
+  background: #fff0f0;
+}
+
+/* ── Tooltip field rows ── */
+.mps-tooltip-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.mps-tooltip-field:last-of-type { border-bottom: none; }
+
+.mps-tooltip-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin: 0;
+}
+.mps-tooltip-field span {
+  font-size: 11px;
+  color: #1f2937;
+  text-align: right;
+  font-weight: 500;
+}
+
+/* ── Tooltip body wrapper (between header and footer) ── */
+.mps-tooltip-body {
+  padding: 8px 0 4px;
+}
+
+/* ── Tooltip footer ── */
+.mps-tooltip-footer {
+  padding: 10px 14px;
+  border-top: 1px solid #f3f4f6;
+  background: #fafafa;
+  border-radius: 0 0 10px 10px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MPS BUILDING TABLE  — inside the building-stack tooltip
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.mps-building-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.mps-building-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.mps-building-table th,
+.mps-building-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.mps-building-table th {
+  background: #f8f9fa;
+  font-size: 10px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.mps-building-table tbody tr:hover { background: #fff8f0; }
+.mps-building-table td             { color: #374151; }
+
+/* "Remove" button inside table */
+.mps-delete-child-btn {
+  width: 22px; height: 22px;
+  background: #fff0f0;
+  border: 1px solid #fca5a5;
+  border-radius: 4px;
+  color: #dc3545;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  line-height: 1;
+}
+.mps-delete-child-btn:hover:not(:disabled) {
+  background: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+.mps-delete-child-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.mps-no-units {
+  padding: 16px 14px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MPS BUTTONS
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.mps-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s, transform 0.12s;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.mps-btn:active { transform: scale(0.97); }
+.mps-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.mps-btn-success {
+  background: #e07b00;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(224, 123, 0, 0.28);
+}
+.mps-btn-success:hover:not(:disabled) { background: #c96a00; }
+
+.mps-btn-danger {
+  background: #dc3545;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(220, 53, 69, 0.22);
+}
+.mps-btn-danger:hover:not(:disabled) { background: #b02a37; }
+
+.mps-btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+.mps-btn-secondary:hover:not(:disabled) { background: #e9eaec; }
+
+/* Full-width variant */
+.mps-btn-full { width: 100%; }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MPS BACKDROP + ADD-POSITION FORM  — appears on double-click
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.mps-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: mpsBackdropIn 0.2s ease;
+}
+
+@keyframes mpsBackdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.mps-add-form {
+  background: #fff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  animation: mpsFormIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes mpsFormIn {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* ── Form title / header bar ── */
+.mps-form-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  letter-spacing: -0.2px;
+}
+.mps-form-title i {
+  font-size: 15px;
+  color: #e07b00;
+}
+
+/* ── Form body ── */
+.mps-form-body {
+  padding: 18px 20px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Form group (label + control) ── */
+.mps-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 20px;
+  margin-top: 14px;
+}
+.mps-form-group:first-of-type { margin-top: 18px; }
+
+.mps-form-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.mps-form-control {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1f2937;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.mps-form-control:focus {
+  border-color: #e07b00;
+  box-shadow: 0 0 0 3px rgba(224, 123, 0, 0.12);
+}
+
+/* Select arrow */
+.mps-form-group select.mps-form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+}
+
+/* Helper text under input */
+.mps-form-help {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 3px;
+  line-height: 1.4;
+  display: block;
+}
+.mps-form-help strong { color: #e07b00; }
+
+/* ── Coordinates badge ── */
+.mps-form-coords {
+  display: flex;
+  gap: 10px;
+  padding: 8px 20px;
+  margin: 10px 0 0;
+  background: #f8fafc;
+  border-top: 1px solid #f0f1f3;
+  border-bottom: 1px solid #f0f1f3;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.2px;
+}
+.mps-form-coords i {
+  color: #e07b00;
+  margin-right: 4px;
+}
+.mps-form-coords span {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Form action buttons ── */
+.mps-form-actions {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px 18px;
+}
+.mps-form-actions .mps-btn { flex: 1; }
+
+/* ── Responsive ── */
+@media (max-width: 767.98px) {
+  .unit-mapping-container  { padding: 10px 14px; }
+  .masterplan-page-header  { padding: 10px 14px; margin-left: 4px; margin-right: 4px; }
+  .masterplan-page-title   { font-size: 16px; }
+  .masterplan-page-select-wrap { max-width: 100%; min-width: 0; flex: 1; }
+
+  .masterplan-container {
+    max-width: 100%; margin-left: 4px; margin-right: 4px;
+    width: calc(100% - 8px); padding: 0;
+    overflow: visible; background: #e9e9e9;
+    height: auto; cursor: grab; touch-action: none;
+  }
+  #masterplan-wrapper { display: block; width: 100%; overflow: visible; }
+  .masterplan-image-wrapper { width: 100%; display: block; }
+  .masterplan-image { width: 100%; height: auto; min-height: 340px; object-fit: cover; }
+  .zoom-controls { bottom: 12px; right: 10px; gap: 4px; }
+  .zoom-btn { width: 36px; height: 36px; font-size: 16px; }
+  .unit-marker { width: 22px; height: 22px; }
+
+  /* Tooltip full-width on mobile */
+  .mps-tooltip,
+  .mps-tooltip-wide {
+    min-width: 0;
+    max-width: 92vw;
+    width: 92vw;
+  }
+  .mps-tooltip-field { flex-direction: column; align-items: flex-start; gap: 2px; padding: 6px 14px; }
+  .mps-tooltip-field label { min-width: auto; }
+  .mps-tooltip-field span  { text-align: left; }
+
+  .mps-building-scroll { max-height: 160px; }
+  .mps-building-table  { font-size: 10px; }
+  .mps-building-table th,
+  .mps-building-table td { padding: 4px 6px; font-size: 10px; }
+
+  /* Add-form: full-screen sheet on mobile */
+  .mps-backdrop { align-items: flex-end; padding: 0; }
+  .mps-add-form {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    animation: mpsFormInMobile 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+  @keyframes mpsFormInMobile {
+    from { transform: translateY(100%); opacity: 0.6; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .unit-mapping-container { padding: 5px; }
+  .masterplan-page-header { flex-direction: column; align-items: flex-start; }
+  .masterplan-page-select-wrap { width: 100%; max-width: 100%; }
+  .mps-add-form { max-width: 100%; }
+  .mps-form-actions { flex-direction: column; }
+  .mps-form-actions .mps-btn { flex: none; width: 100%; }
+}
+
+/* ── SweetAlert2 z-index override ──────────────────────────────────────────────
+   The tooltip portal sits at z-index 9999 and the add-form backdrop at 100000.
+   Swal must render above both so confirmation dialogs are never obscured.      */
+.swal2-container { z-index: 200000 !important; }

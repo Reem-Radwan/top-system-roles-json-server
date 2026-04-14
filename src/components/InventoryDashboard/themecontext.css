@@ -1,0 +1,122 @@
+/* CSS Variables for Theme Switching */
+:root {
+  /* Light Theme Colors */
+  --color-primary: #FF6B35;
+  --color-primary-dark: #E85A2A;
+  --color-primary-light: #FF8556;
+  --color-primary-glow: rgba(255, 107, 53, 0.15);
+  
+  --color-secondary: #4A5568;
+  --color-accent: #FFB088;
+  
+  /* Neutral Colors - Light Mode */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F7F9FC;
+  --color-bg-tertiary: #EDF2F7;
+  --color-bg-hover: #E2E8F0;
+  
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+  
+  --color-text-primary: #1A202C;
+  --color-text-secondary: #4A5568;
+  --color-text-tertiary: #718096;
+  --color-text-inverse: #FFFFFF;
+  
+  --color-border: #E2E8F0;
+  --color-border-light: #EDF2F7;
+  --color-divider: #CBD5E0;
+  
+  /* Status Colors */
+  --color-success: #48BB78;
+  --color-success-light: #C6F6D5;
+  --color-warning: #F6AD55;
+  --color-warning-light: #FEEBC8;
+  --color-error: #F56565;
+  --color-error-light: #FED7D7;
+  --color-info: #4299E1;
+  --color-info-light: #BEE3F8;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 20px var(--color-primary-glow);
+}
+
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --color-bg-primary: #0F172A;
+  --color-bg-secondary: #1E293B;
+  --color-bg-tertiary: #334155;
+  --color-bg-hover: #475569;
+  
+  --color-surface: #1E293B;
+  --color-surface-elevated: #334155;
+  
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #CBD5E1;
+  --color-text-tertiary: #94A3B8;
+  --color-text-inverse: #0F172A;
+  
+  --color-border: #475569;
+  --color-border-light: #334155;
+  --color-divider: #1E293B;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.7), 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.8), 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Mode Toggle - FIXED: No margin-top, aligns with company selector */
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 32px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-base);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle:hover {
+  background: var(--color-bg-hover);
+}
+
+.theme-toggle-slider {
+  width: 24px;
+  height: 24px;
+  background: var(--color-surface-elevated);
+  border-radius: 50%;
+  transition: transform var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .theme-toggle-slider {
+  transform: translateX(28px);
+}
+
+[data-theme="dark"] .dashboard-loading {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+
+.dark .dashboard-header h1,
+[data-theme="dark"] .dashboard-header h1 {
+  color: white !important;
+}
+
+[data-theme="dark"] .units-table td:first-child {
+  background: #334155;
+}

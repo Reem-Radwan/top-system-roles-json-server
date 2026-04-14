@@ -1,0 +1,1023 @@
+
+/* ===========================================
+   INVENTORY STATUS PIVOT - UNIQUE CLASS NAMES
+   Prevents CSS conflicts with other pivot tables
+   =========================================== */
+
+/* Main Container */
+.invstatus-unique-container {
+   width: 100%;
+  max-width: 1400px; /* Match header width */
+  margin: 0 auto; /* Center the container */
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  font-family: inherit;
+}
+
+/* Theme variables - Fixed conflict issue */
+.invstatus-unique-container.invstatus-theme-blue {
+  --invstatus-accent-start: #4A90E2;
+  --invstatus-accent-end: #357ABD;
+  --invstatus-accent-border: #2E6BA8;
+  --invstatus-accent-rgb: 74, 144, 226;
+  --invstatus-sticky-bg: #e3effd;
+  --invstatus-primary: var(--color-primary);
+}
+
+/* Gray theme for Contracted - This was conflicting before */
+.invstatus-unique-container.invstatus-theme-gray {
+  --invstatus-accent-start: #9E9E9E;
+  --invstatus-accent-end: #616161;
+  --invstatus-accent-border: #4E4E4E;
+  --invstatus-accent-rgb: 130, 130, 130;
+  --invstatus-sticky-bg: #f1f1f1;
+  --invstatus-primary: #757575;
+}
+
+[data-theme="dark"] .invstatus-unique-container.invstatus-theme-gray .invstatus-level-0-label{
+  color: orangered;
+}
+
+/* ===================================
+   STATUS TABS (DESKTOP)
+   =================================== */
+
+.invstatus-tabs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  position: relative;
+  width: 100%;
+}
+
+.invstatus-tabs-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.invstatus-tabs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.invstatus-tabs-scroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  display: flex;
+  justify-content: center;
+}
+
+.invstatus-tabs-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.invstatus-category-toggle {
+  display: flex;
+  gap: 8px;
+  background: var(--color-bg-secondary);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  min-width: min-content;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.invstatus-category-btn {
+  padding: var(--space-xs) var(--space-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 36px;
+}
+
+.invstatus-category-btn.invstatus-active {
+  background: linear-gradient(135deg, var(--invstatus-accent-start), var(--invstatus-accent-end));
+  color: white;
+  box-shadow: 0 2px 8px rgba(var(--invstatus-accent-rgb), 0.3);
+}
+
+.invstatus-category-btn:hover:not(.invstatus-active) {
+  background: var(--color-bg-tertiary);
+}
+
+/* ===================================
+   CONTROLS SECTION
+   =================================== */
+
+.invstatus-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.invstatus-right-aligned {
+  justify-content: flex-end;
+}
+
+.invstatus-controls-group {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.invstatus-control-btn {
+  padding: var(--space-sm) var(--space-md);
+  border: 1.1px solid var(--color-border-light);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.invstatus-control-btn:hover {
+  background: var(--color-bg-secondary);
+  border-color: var(--invstatus-primary);
+  color: var(--invstatus-primary);
+}
+
+.invstatus-control-btn:active {
+  transform: scale(0.98);
+}
+
+/* ===================================
+   DROPDOWN CONTROLS
+   =================================== */
+
+.invstatus-row-toggle,
+.invstatus-column-toggle,
+.invstatus-status-toggle {
+  position: relative;
+}
+
+.invstatus-row-dropdown,
+.invstatus-column-dropdown {
+  display: block;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-sm);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-md);
+  min-width: 220px;
+  z-index: 1000;
+}
+
+.invstatus-column-dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.invstatus-dropdown-section {
+  margin-bottom: var(--space-sm);
+}
+
+.invstatus-dropdown-section:last-child {
+  margin-bottom: 0;
+}
+
+.invstatus-dropdown-section h4 {
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--space-xs);
+}
+
+.invstatus-row-dropdown .invstatus-dropdown-label,
+.invstatus-column-dropdown .invstatus-dropdown-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  transition: background var(--transition-fast);
+  border-radius: var(--radius-sm);
+  user-select: none;
+}
+
+.invstatus-row-dropdown .invstatus-dropdown-label:hover:not(:has(input:disabled)),
+.invstatus-column-dropdown .invstatus-dropdown-label:hover {
+  background: var(--color-bg-secondary);
+}
+
+.invstatus-row-dropdown .invstatus-dropdown-label:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.invstatus-row-dropdown input[type="checkbox"],
+.invstatus-column-dropdown input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--invstatus-primary);
+  cursor: pointer;
+}
+
+/* ===================================
+   PIVOT TABLE SCROLL CONTAINER
+   =================================== */
+
+.invstatus-table-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 70vh;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.invstatus-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.invstatus-table-scroll::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+  border-radius: 4px;
+}
+
+.invstatus-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: 4px;
+}
+
+.invstatus-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--invstatus-primary);
+}
+
+/* ===================================
+   TABLE WRAPPER & STRUCTURE
+   =================================== */
+
+.invstatus-table-wrapper {
+  min-width: 100%;
+  width: max-content;
+  overflow-x: visible;
+}
+
+.invstatus-pivot-table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.9rem;
+  table-layout: auto;
+  background: var(--color-bg-primary);
+}
+
+/* Full width layout for single status */
+.invstatus-pivot-table.invstatus-single-layout {
+  table-layout: auto;
+  width: 100%;
+  min-width: 100%;
+}
+
+/* ===================================
+   TABLE HEADERS
+   =================================== */
+
+.invstatus-header-row {
+  background: linear-gradient(135deg, var(--invstatus-accent-start), var(--invstatus-accent-end));
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.invstatus-header-row th {
+  padding: var(--space-md);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border: none;
+  min-width: 120px;
+}
+
+.invstatus-group-header {
+  position: sticky;
+  left: 0;
+  background: linear-gradient(135deg, var(--invstatus-accent-start), var(--invstatus-accent-end));
+  z-index: 11;
+  min-width: 250px;
+  width: 250px;
+  text-align: left !important;
+}
+
+.invstatus-status-group-header {
+  text-align: center !important;
+  position: relative;
+}
+
+/* .invstatus-status-group-header:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgb(212, 211, 211);
+  z-index: 10;
+} */
+
+.invstatus-sub-header-row {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.invstatus-sub-header-row th {
+  padding: var(--space-sm);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: none;
+}
+
+.invstatus-metric-header {
+  border-bottom: 2px solid var(--color-border-light);
+  padding-bottom: 12px;
+  font-weight: 600;
+}
+
+/* ===================================
+   TABLE ROWS
+   =================================== */
+
+.invstatus-data-row {
+  transition: background-color 0.2s;
+  border: none;
+}
+
+.invstatus-data-row:nth-child(even) {
+  background-color: var(--color-bg-secondary);
+}
+
+.invstatus-data-row:hover {
+  background-color: rgba(var(--invstatus-accent-rgb), 0.05);
+}
+
+.invstatus-level-0 {
+  background: rgba(var(--invstatus-accent-rgb), 0.1);
+  font-weight: 600;
+}
+
+.invstatus-level-1 {
+  background: rgba(var(--invstatus-accent-rgb), 0.05);
+  font-weight: 500;
+}
+
+.invstatus-level-2 {
+  background: var(--color-bg-primary);
+}
+
+/* ===================================
+   GROUP COLUMN (STICKY LEFT)
+   =================================== */
+
+.invstatus-group-column {
+  position: sticky;
+  left: 0;
+  background: var(--invstatus-sticky-bg);
+  z-index: 5;
+  min-width: 250px;
+  width: 250px;
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  border-right: 2px solid var(--color-border-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.invstatus-expand-btn {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: none;
+  background: var(--color-bg-secondary);
+  color: var(--invstatus-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.invstatus-expand-btn:hover {
+  background: var(--invstatus-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.invstatus-expand-btn:active {
+  transform: scale(1.05);
+}
+
+/* ===================================
+   LEVEL LABELS
+   =================================== */
+
+.invstatus-level-0-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--invstatus-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.invstatus-level-1-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.invstatus-level-2-label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===================================
+   METRIC CELLS
+   =================================== */
+
+.invstatus-metric-cell {
+  padding: var(--space-md);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  min-width: 120px;
+  width: auto;
+  border: none;
+}
+
+/* Status group separators (only when multiple statuses) */
+.invstatus-group-separator {
+  position: relative;
+}
+
+.invstatus-group-separator::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgb(212, 211, 211);
+  z-index: 10;
+}
+
+.invstatus-group-end {
+  border-right: none !important;
+}
+
+/* ===================================
+   DARK MODE SUPPORT
+   =================================== */
+
+[data-theme="dark"] .invstatus-unique-container {
+  background: var(--color-bg-primary);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .invstatus-tabs-container {
+  background: var(--color-bg-secondary) !important;
+  border-bottom-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .invstatus-category-toggle {
+  background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .invstatus-category-btn {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .invstatus-category-btn:hover:not(.invstatus-active) {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .invstatus-control-btn {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .invstatus-control-btn:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--invstatus-primary);
+  color: var(--invstatus-primary);
+}
+
+[data-theme="dark"] .invstatus-row-dropdown,
+[data-theme="dark"] .invstatus-column-dropdown {
+  background: var(--color-bg-primary);
+  border-color: var(--color-border-light);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .invstatus-dropdown-section h4 {
+  color: var(--color-text-primary);
+  border-bottom-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .invstatus-row-dropdown .invstatus-dropdown-label,
+[data-theme="dark"] .invstatus-column-dropdown .invstatus-dropdown-label {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .invstatus-row-dropdown .invstatus-dropdown-label:hover:not(:has(input:disabled)),
+[data-theme="dark"] .invstatus-column-dropdown .invstatus-dropdown-label:hover {
+  background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .invstatus-table-scroll {
+  border-color: var(--color-border-light);
+  background: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .invstatus-pivot-table {
+  background: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .invstatus-header-row {
+  background: linear-gradient(135deg, var(--invstatus-accent-start), var(--invstatus-accent-end));
+}
+
+[data-theme="dark"] .invstatus-sub-header-row {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .invstatus-group-column {
+  background: var(--invstatus-sticky-bg);
+  border-right-color: var(--color-border-light);
+}
+
+/* Dark Mode - Different group column colors based on theme */
+[data-theme="dark"] .invstatus-unique-container.invstatus-theme-blue .invstatus-group-column {
+  background-color: #69a7ed !important;
+}
+
+[data-theme="dark"] .invstatus-unique-container.invstatus-theme-gray .invstatus-group-column {
+  background-color: #6e6e6e !important;
+}
+
+[data-theme="dark"] .invstatus-data-row:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .invstatus-data-row:hover {
+  background-color: rgba(var(--invstatus-accent-rgb), 0.12);
+}
+
+[data-theme="dark"] .invstatus-level-0 {
+  background: rgba(var(--invstatus-accent-rgb), 0.15);
+}
+
+[data-theme="dark"] .invstatus-level-1 {
+  background: rgba(var(--invstatus-accent-rgb), 0.08);
+}
+
+[data-theme="dark"] .invstatus-level-2 {
+  background: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .invstatus-metric-cell {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .invstatus-metric-header {
+  border-bottom-color: var(--color-border-medium);
+}
+
+[data-theme="dark"] .invstatus-level-0-label {
+  color: var(--invstatus-primary);
+}
+
+[data-theme="dark"] .invstatus-level-1-label {
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .invstatus-level-2-label {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .invstatus-expand-btn {
+  background: var(--color-bg-secondary);
+  color: var(--invstatus-primary);
+}
+
+[data-theme="dark"] .invstatus-expand-btn:hover {
+  background: var(--invstatus-primary);
+  color: white;
+}
+
+[data-theme="dark"] .invstatus-group-separator::after,
+[data-theme="dark"] .invstatus-status-group-header:not(:last-child)::after {
+  background: var(--color-border-medium);
+}
+
+/* ===================================
+   RESPONSIVE - TABLET (1024px)
+   =================================== */
+
+@media (max-width: 1024px) {
+   .invstatus-table-scroll {
+    max-height: 60vh;
+  }
+
+  .invstatus-header-row th {
+    font-size: 0.75rem;
+    padding: var(--space-sm);
+    min-width: 100px;
+  }
+
+  .invstatus-metric-cell {
+    font-size: 0.8rem;
+    padding: var(--space-sm);
+    min-width: 100px;
+  }
+
+  .invstatus-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .invstatus-controls-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .invstatus-category-toggle {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 8px 16px;
+  }
+
+
+  .invstatus-group-column,
+  .invstatus-group-header {
+    min-width: 200px;
+    width: 200px;
+  }
+}
+
+/* ===================================
+   RESPONSIVE - MOBILE (768px)
+   =================================== */
+
+@media (max-width: 768px) {
+  /* Show status tabs on mobile */
+  .invstatus-tabs-container {
+    display: block !important;
+    padding: 8px;
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-md);
+  }
+
+  [data-theme="dark"] .invstatus-tabs-container {
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .invstatus-tabs-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .invstatus-tabs-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .invstatus-tabs-scroller {
+    overflow-x: auto;
+    padding: 4px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: block;
+  }
+
+  .invstatus-tabs-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .invstatus-category-toggle {
+    display: flex;
+    gap: 6px;
+    min-width: max-content;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .invstatus-category-btn {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 20px;
+    min-height: 36px;
+    flex-shrink: 0;
+  }
+
+  /* Container adjustments */
+  .invstatus-unique-container {
+    padding: var(--space-md);
+  }
+
+  /* Controls adjustments - Move to right on mobile */
+  .invstatus-controls {
+    justify-content: flex-end;
+    margin-bottom: var(--space-md);
+  }
+
+  .invstatus-controls-group {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    justify-content: flex-end;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .invstatus-control-btn {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    min-width: max-content;
+    flex: 0 1 auto;
+    text-align: center;
+  }
+
+  /* Table scroll adjustments */
+  .invstatus-table-scroll {
+    max-height: 50vh;
+    /* border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    margin: 0 8px; */
+  }
+
+  .invstatus-table-wrapper {
+    min-width: 800px;
+  }
+
+  .invstatus-pivot-table th,
+  .invstatus-pivot-table td {
+    font-size: 12px;
+    padding: 8px 4px;
+    min-height: 40px;
+  }
+
+  /* Updated to match PivotTable mobile column width */
+  .invstatus-group-column,
+  .invstatus-group-header {
+    min-width: 150px;
+    width: 150px;
+    padding: var(--space-sm);
+    font-size: 0.75rem;
+  }
+
+  .invstatus-level-0-label {
+    font-size: 0.8rem;
+  }
+
+  .invstatus-level-1-label {
+    font-size: 0.75rem;
+  }
+
+  .invstatus-level-2-label {
+    font-size: 0.7rem;
+  }
+
+  .invstatus-expand-btn {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    max-height: 20px;
+    font-size: 0.65rem;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .invstatus-header-row th {
+    min-width: 80px;
+    font-size: 0.7rem;
+    padding: 8px 4px;
+  }
+
+  .invstatus-metric-cell {
+    min-width: 80px;
+    font-size: 0.75rem;
+    /* padding: 8px 4px; */
+  }
+
+  .invstatus-row-dropdown,
+  .invstatus-column-dropdown {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+  }
+
+  .invstatus-group-separator::after,
+  .invstatus-status-group-header:not(:last-child)::after {
+    width: 1px;
+    background: var(--color-border-light);
+  }
+
+  [data-theme="dark"] .invstatus-group-separator::after,
+  [data-theme="dark"] .invstatus-status-group-header:not(:last-child)::after {
+    background: var(--color-border-medium);
+  }
+}
+
+/* ===================================
+   RESPONSIVE - SMALL MOBILE (480px)
+   =================================== */
+
+@media (max-width: 480px) {
+  .invstatus-category-btn {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    min-width: 90px;
+  }
+
+  .invstatus-controls-group {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .invstatus-control-btn {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .invstatus-control-btn:nth-last-child(1):nth-child(odd) {
+    grid-column: span 2;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  /* Keep readable width on very small screens */
+  .invstatus-group-column,
+  .invstatus-group-header {
+    min-width: 170px;
+    width: 170px;
+    max-width: 170px;
+    padding: var(--space-sm);
+    font-size: 0.75rem;
+  }
+
+  .invstatus-header-row th {
+    min-width: 70px;
+    font-size: 0.75rem;
+    padding: var(--space-sm);
+  }
+
+  .invstatus-metric-cell {
+    min-width: 70px;
+    font-size: 0.7rem;
+    padding: 6px 3px;
+  }
+
+  .invstatus-level-0-label {
+    font-size: 0.75rem;
+  }
+
+  .invstatus-level-1-label {
+    font-size: 0.7rem;
+  }
+
+  .invstatus-level-2-label {
+    font-size: 0.65rem;
+  }
+
+  .invstatus-expand-btn {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    max-width: 18px;
+    min-height: 18px;
+    max-height: 18px;
+    font-size: 0.6rem;
+    padding: 0;
+  }
+}
+
+/* ===================================
+   RESPONSIVE - VERY SMALL (360px)
+   =================================== */
+
+@media (max-width: 360px) {
+  .invstatus-controls-group {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .invstatus-control-btn {
+    width: 100%;
+  }
+
+  .invstatus-control-btn:nth-last-child(1):nth-child(odd) {
+    grid-column: span 1;
+    max-width: none;
+  }
+
+  .invstatus-category-btn {
+    font-size: 0.6rem;
+    padding: 4px 6px;
+    min-width: 85px;
+  }
+}
+
+/* ===================================
+   TOUCH DEVICE IMPROVEMENTS
+   =================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  .invstatus-category-btn,
+  .invstatus-control-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+
+@media print {
+  .invstatus-controls,
+  .invstatus-tabs-container {
+    display: none;
+  }
+
+  .invstatus-table-scroll {
+    overflow: visible;
+    max-height: none;
+    border: none;
+  }
+
+  .invstatus-expand-btn {
+    display: none;
+  }
+}

@@ -1,0 +1,434 @@
+/* Complete reset scoped to component */
+.re-login-container,
+.re-login-container *,
+.re-login-container *::before,
+.re-login-container *::after {
+  box-sizing: border-box !important;
+}
+
+/* Prevent body scroll ONLY when login container is present */
+body:has(.re-login-container) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  width: 100vw !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.re-login-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  background: #f5f5f5 !important;
+  font-family: "Times New Roman", Times, serif !important;
+  z-index: 9999 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.re-login-wrapper {
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  overflow: hidden !important;
+}
+
+.re-login-card {
+  display: flex !important;
+  width: 860px !important;
+  max-width: 92% !important;
+  max-height: 94vh !important;
+  max-height: 94dvh !important;
+  background: white !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ── LEFT PANEL ── */
+.re-login-left {
+  flex: 1 !important;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ1Uy6tgUVQjm0pwqY6ykun5tYU1GBIQnRLA&s") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  padding: 50px 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.re-login-left::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.85) 0%,
+    rgba(247, 147, 30, 0.85) 100%
+  ) !important;
+}
+
+.re-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.re-brand-icon {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.re-welcome-content {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.re-welcome-subtitle {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 18px !important;
+  margin: 12px 0 0 0 !important;
+  text-align: center !important;
+}
+
+.re-welcome-title {
+  color: white !important;
+  font-size: 42px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  padding-bottom: 1rem !important;
+  border-bottom: 2px solid #f3f4f6 !important;
+  position: relative !important;
+}
+
+.re-welcome-title::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 120px !important;
+  height: 3px !important;
+  background-color: #f97316 !important;
+  border-radius: 2px !important;
+}
+
+/* ── RIGHT PANEL ── */
+.re-login-right {
+  flex: 1 !important;
+  padding: 40px 40px 30px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Custom scrollbar */
+.re-login-right::-webkit-scrollbar {
+  width: 6px !important;
+}
+.re-login-right::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+.re-login-right::-webkit-scrollbar-thumb {
+  background: #ddd !important;
+  border-radius: 3px !important;
+}
+
+.re-login-header {
+  margin-bottom: 24px !important;
+}
+
+.re-login-title {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #595959 !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* ── FORM ── */
+.re-form-group {
+  margin-bottom: 16px !important;
+}
+
+.re-input-wrapper {
+  position: relative !important;
+}
+
+.re-form-label {
+  color: #595959 !important;
+  display: block !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  margin-bottom: 5px !important;
+}
+
+.re-form-input {
+  width: 100% !important;
+  padding: 12px 45px 12px 15px !important;
+  border: none !important;
+  border-left: 3px solid #ff6b35 !important;
+  background: #f8f8f8 !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  color: #333 !important;
+  outline: none !important;
+  transition: all 0.3s !important;
+  margin: 0 !important;
+  line-height: normal !important;
+}
+
+.re-form-input-error {
+  border-left-color: #e74c3c !important;
+}
+
+.re-form-input:focus {
+  background: white !important;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1) !important;
+}
+
+.re-form-input::placeholder {
+  color: #999 !important;
+}
+
+.re-password-toggle {
+  position: absolute !important;
+  right: 15px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  color: #999 !important;
+  padding: 5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.re-password-toggle:hover {
+  color: #ff6b35 !important;
+}
+
+.re-error-message {
+  color: #e74c3c !important;
+  font-size: 12px !important;
+  margin-top: 6px !important;
+  display: block !important;
+}
+
+/* ── SERVER ERROR (Invalid credentials, etc.) ── */
+.re-server-error {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  background: #fff4f2 !important;
+  border: 1px solid #ffc9bb !important;
+  border-left: 3px solid #e74c3c !important;
+  border-radius: 0 6px 6px 0 !important;
+  padding: 10px 14px !important;
+  margin-top: 14px !important;
+  font-size: 13px !important;
+  color: #c0392b !important;
+  font-family: "Times New Roman", Times, serif !important;
+  animation: re-shake 0.4s ease !important;
+}
+
+.re-server-error-icon {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+  color: #e74c3c !important;
+}
+
+@keyframes re-shake {
+  0%,  100% { transform: translateX(0); }
+  20%, 60%  { transform: translateX(-5px); }
+  40%, 80%  { transform: translateX(5px); }
+}
+
+/* ── SUBMIT BUTTON ── */
+.re-submit-btn {
+  width: 100% !important;
+  padding: 14px !important;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 25px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
+  margin-top: 20px !important;
+  line-height: normal !important;
+}
+
+.re-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4) !important;
+}
+
+.re-submit-btn:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
+
+/* ── QUICK LOGIN SWITCHER ── */
+.re-switcher {
+  margin-top: 22px !important;
+  padding-top: 0 !important;
+}
+
+.re-switcher-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 14px !important;
+}
+
+.re-switcher-line {
+  flex: 1 !important;
+  height: 1px !important;
+  background: #ebebeb !important;
+}
+
+.re-switcher-label {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #bbb !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  white-space: nowrap !important;
+  font-family: "Times New Roman", Times, serif !important;
+}
+
+.re-switcher-grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+}
+
+.re-role-chip {
+  padding: 5px 13px !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  font-family: "Times New Roman", Times, serif !important;
+  cursor: pointer !important;
+  background: white !important;
+  color: #666 !important;
+  transition: all 0.18s ease !important;
+  white-space: nowrap !important;
+  line-height: normal !important;
+}
+
+.re-role-chip:hover {
+  border-color: #ff6b35 !important;
+  color: #ff6b35 !important;
+  background: #fff8f5 !important;
+}
+
+.re-role-chip--active {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%) !important;
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.re-role-chip--active:hover {
+  color: white !important;
+  background: linear-gradient(135deg, #e85d2a 0%, #e08416 100%) !important;
+}
+
+/* credentials preview strip */
+.re-switcher-creds {
+  display: flex !important;
+  gap: 8px !important;
+  margin-top: 12px !important;
+}
+
+.re-cred-item {
+  flex: 1 !important;
+  background: #f8f8f8 !important;
+  border-left: 3px solid #ff6b35 !important;
+  padding: 8px 10px !important;
+  min-width: 0 !important;
+}
+
+.re-cred-key {
+  display: block !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #bbb !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  margin-bottom: 3px !important;
+  font-family: "Times New Roman", Times, serif !important;
+}
+
+.re-cred-val {
+  display: block !important;
+  font-size: 12px !important;
+  color: #444 !important;
+  word-break: break-all !important;
+  font-family: "Times New Roman", Times, serif !important;
+}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  .re-login-wrapper {
+    padding: 15px !important;
+  }
+
+  .re-login-card {
+    flex-direction: column !important;
+    width: 98% !important;
+    max-height: 97dvh !important;
+  }
+
+  .re-login-left {
+    padding: 28px 25px !important;
+  }
+
+  .re-welcome-title {
+    font-size: 32px !important;
+  }
+
+  .re-login-right {
+    padding: 28px 22px 20px !important;
+  }
+
+  .re-switcher-creds {
+    flex-direction: column !important;
+  }
+}

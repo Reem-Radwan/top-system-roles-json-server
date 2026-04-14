@@ -1,0 +1,414 @@
+/* inventoryhub.css */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); */
+
+*{
+  font-family: 'Times New Roman', Times, serif;
+}
+:root {
+  --bg-page:       #f4f5f7;
+  --bg-card:       #ffffff;
+  --border:        #e0e3eb;
+  --border-bright: #c5cad6;
+  --text-primary:  #1c2230;
+  --text-secondary:#52596b;
+  --text-muted:    #9399a8;
+  --accent-blue:   #2563eb;
+  --accent-green:  #16a34a;
+  --accent-yellow: #d97706;
+  --accent-purple: #7c3aed;
+  --accent-red:    #dc2626;
+  --font-body:     'Times New Roman', Times, serif;
+  --radius:        8px;
+  --radius-lg:     12px;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover:  0 6px 24px rgba(0,0,0,0.10);
+  --transition:    0.18s cubic-bezier(0.4,0,0.2,1);
+
+  /* shared horizontal gutter — used by topbar + body */
+  --gutter: 40px;
+  --content-max: 1400px;
+}
+
+/* ─── Reset & Base ─────────────────────────────────────── */
+.ih-root { background: var(--bg-page); min-height: 100vh; font-family: 'Times New Roman', Times, serif; color: var(--text-primary); }
+.ih-root * { box-sizing: border-box; }
+
+/* ─── Inner width helper (shared by topbar + body) ──────── */
+.ih-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOP HEADER BAR  —  matches screenshot exactly
+   ═══════════════════════════════════════════════════════════ */
+.ih-topbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin: 5px 15px;
+  border-radius: 10px;
+}
+
+.ih-topbar-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Left — icon + title */
+.ih-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ih-topbar-icon {
+  font-size: 1.7rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  color: #555;
+}
+
+.ih-topbar-text h1 {
+  color: #555;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+/* Right — "Company:" label + select + optional action buttons */
+.ih-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ih-topbar-company-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.ih-topbar-company-label span.ih-label-icon {
+  font-size: 1rem;
+}
+
+/* The native <select> styled to match screenshot */
+.ih-company-select {
+  height: 40px;
+  padding: 0 34px 0 12px;
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1.5px solid var(--border-bright);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  min-width: 200px;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.ih-company-select:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+.ih-company-select option { background: #fff; color: var(--text-primary); }
+
+/* Lock badge (uploader mode) */
+.ih-lock-badge {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: var(--accent-blue);
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EMPTY / WAITING STATE
+   ═══════════════════════════════════════════════════════════ */
+.ih-empty-wrap {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
+}
+
+.ih-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  background: transparent;
+}
+
+.ih-empty-state p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE BODY  (same horizontal margins as topbar)
+   ═══════════════════════════════════════════════════════════ */
+.ih-body {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 28px var(--gutter) 80px;
+}
+
+/* ─── Section Title ───────────────────────────────────── */
+.ih-section-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── Card Grids ──────────────────────────────────────── */
+.ih-card-grid   { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-bottom: 32px; }
+.ih-card-grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-bottom: 32px; }
+
+@media (max-width: 960px) {
+  .ih-card-grid, .ih-card-grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 1120px) and (min-width: 961px) {
+  .ih-card-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+/* ─── Cards ────────────────────────────────────────────── */
+.ih-source-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  display: flex; flex-direction: column;
+  justify-content: space-between; gap: 16px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.ih-source-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.ih-source-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+.ih-card-csv::after   { background: var(--accent-blue); }
+.ih-card-sheet::after { background: var(--accent-green); }
+.ih-card-erp::after   { background: var(--accent-yellow); }
+.ih-card-csv:hover    { border-color: #bfdbfe; }
+.ih-card-sheet:hover  { border-color: #bbf7d0; }
+.ih-card-erp:hover    { border-color: #fde68a; }
+
+.ih-card-rename { border-left: 3px solid var(--accent-purple); background: linear-gradient(to bottom right,#fff,#faf7ff); }
+.ih-card-rename:hover { border-color: #ddd6fe; border-left-color: var(--accent-purple); }
+.ih-card-delete { border-left: 3px solid var(--accent-red); background: linear-gradient(to bottom right,#fff,#fff5f5); }
+.ih-card-delete:hover { border-color: #fecaca; border-left-color: var(--accent-red); }
+
+.ih-card-top { text-align: center; }
+.ih-source-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+.ih-source-card h4 { font-size: 1rem; font-weight: 700; margin: 0 0 5px; color: var(--text-primary); }
+.ih-source-card p  { font-size: 0.81rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+
+/* ─── Status Pill ─────────────────────────────────────── */
+.ih-status-pill { font-size: 0.7rem; padding: 5px 10px; border-radius: 6px; margin-top: 10px; word-break: break-all; line-height: 1.4; font-family: monospace; }
+.ih-status-pill.configured     { background: #f0fdf4; color: var(--accent-green); border: 1px solid #bbf7d0; }
+.ih-status-pill.not-configured { background: #f8f9fc; color: var(--text-muted);   border: 1px solid var(--border); }
+
+/* ─── Buttons ─────────────────────────────────────────── */
+.ih-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 18px; border-radius: var(--radius); border: none;
+  font-family: var(--font-body); font-size: 0.86rem; font-weight: 600;
+  cursor: pointer; transition: all var(--transition); width: 100%;
+}
+.ih-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ih-btn-blue   { background: var(--accent-blue);   color: #fff; }
+.ih-btn-blue:hover:not(:disabled)   { background: #1d4ed8; box-shadow: 0 4px 14px rgba(37,99,235,0.28); }
+.ih-btn-green  { background: var(--accent-green);  color: #fff; }
+.ih-btn-green:hover:not(:disabled)  { background: #15803d; box-shadow: 0 4px 14px rgba(22,163,74,0.28); }
+.ih-btn-yellow { background: var(--accent-yellow); color: #fff; }
+.ih-btn-yellow:hover:not(:disabled) { background: #b45309; box-shadow: 0 4px 14px rgba(217,119,6,0.28); }
+.ih-btn-purple { background: transparent; color: var(--accent-purple); border: 1.5px solid var(--accent-purple); }
+.ih-btn-purple:hover:not(:disabled) { background: var(--accent-purple); color: #fff; box-shadow: 0 4px 14px rgba(124,58,237,0.22); }
+.ih-btn-red    { background: var(--accent-red); color: #fff; width: auto; padding: 8px 16px; font-size: 0.82rem; }
+.ih-btn-red:hover:not(:disabled)    { background: #b91c1c; box-shadow: 0 4px 14px rgba(220,38,38,0.28); }
+
+/* ─── File Input ──────────────────────────────────────── */
+.ih-file-input {
+  width: 100%; padding: 7px 10px; background: #f8f9fc;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-secondary); font-size: 0.81rem;
+  font-family: var(--font-body); margin-bottom: 12px; cursor: pointer;
+  transition: border-color var(--transition);
+}
+.ih-file-input:focus { outline: none; border-color: var(--accent-blue); }
+.ih-file-input::file-selector-button {
+  background: var(--border); border: none; color: var(--text-primary);
+  padding: 4px 12px; border-radius: 5px; cursor: pointer;
+  font-size: 0.77rem; margin-right: 10px; font-family: var(--font-body); font-weight: 600;
+}
+
+/* ─── Rename / Delete card internals ─────────────────── */
+.ih-rename-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.ih-icon-circle { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+.ih-icon-circle-purple { background: #ede9fe; }
+.ih-icon-circle-red    { background: #fee2e2; }
+.ih-rename-header-text h4    { margin: 0 0 2px; font-size: 1rem; font-weight: 700; }
+.ih-rename-header-text small { font-size: 0.77rem; color: var(--text-secondary); }
+.ih-col-hint { background: #f8f9fc; border: 1px solid var(--border); padding: 8px 12px; border-radius: var(--radius); font-size: 0.79rem; margin-bottom: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ih-col-hint code { font-size: 0.71rem; color: var(--text-muted); }
+.ih-badge { background: var(--border); color: var(--text-secondary); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+.ih-rename-row { display: flex; gap: 10px; align-items: center; }
+.ih-rename-row .ih-file-input { flex: 1; margin-bottom: 0; }
+.ih-delete-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+
+/* ─── Tag System ──────────────────────────────────────── */
+.ih-tag-container { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; min-height: 52px; padding: 10px; background: #fff5f5; border: 1.5px solid #fca5a5; border-radius: var(--radius); cursor: text; transition: border-color var(--transition), box-shadow var(--transition); }
+.ih-tag-container:focus-within { border-color: var(--accent-red); box-shadow: 0 0 0 3px rgba(220,38,38,0.1); }
+.ih-tag { background: #fee2e2; color: var(--accent-red); border: 1px solid #fca5a5; padding: 4px 10px; border-radius: 99px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px; animation: tagIn 0.16s ease; }
+@keyframes tagIn { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
+.ih-tag-close { cursor: pointer; opacity: 0.55; line-height: 1; transition: opacity 0.15s; }
+.ih-tag-close:hover { opacity: 1; }
+.ih-tag-input { border: none; outline: none; flex-grow: 1; min-width: 140px; background: transparent; color: var(--text-primary); font-family: var(--font-body); font-size: 0.84rem; padding: 2px 4px; }
+.ih-tag-input::placeholder { color: #f87171; opacity: 0.7; }
+.ih-delete-hint { text-align: right; margin-top: 5px; }
+.ih-delete-hint small { font-size: 0.73rem; color: var(--text-muted); font-style: italic; }
+
+/* ─── Console Log ─────────────────────────────────────── */
+.ih-console { background: #1a1d27; border: 1px solid #2e3347; border-radius: var(--radius-lg); padding: 14px 16px; height: 200px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.76rem; line-height: 1.75; scrollbar-width: thin; scrollbar-color: #3d4157 transparent; }
+.ih-console::-webkit-scrollbar { width: 4px; }
+.ih-console::-webkit-scrollbar-thumb { background: #3d4157; border-radius: 3px; }
+.ih-log-line { display: flex; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); padding: 1px 0; animation: logFade 0.2s ease; }
+@keyframes logFade { from { opacity:0; transform:translateX(-5px); } to { opacity:1; transform:translateX(0); } }
+.ih-log-time    { color: #4a5168; flex-shrink: 0; }
+.ih-log-info    { color: #94a3b8; }
+.ih-log-success { color: #4ade80; }
+.ih-log-error   { color: #f87171; }
+
+/* ─── Spinner ─────────────────────────────────────────── */
+.ih-spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* ─── Mobile Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --gutter: 16px;
+  }
+
+  .ih-topbar {
+    margin: 4px 8px;
+  }
+
+  .ih-topbar-inner {
+    height: auto;
+    padding: 12px var(--gutter);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ih-topbar-text h1 {
+    font-size: 18px;
+  }
+
+  .ih-topbar-right {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .ih-topbar-company-label {
+    font-size: 0.8rem;
+  }
+
+  .ih-company-select {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .ih-body {
+    padding: 20px var(--gutter) 60px;
+  }
+
+  .ih-card-grid,
+  .ih-card-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .ih-rename-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ih-rename-row .ih-file-input {
+    margin-bottom: 10px;
+  }
+
+  .ih-btn-purple {
+    width: 100%;
+  }
+
+  .ih-delete-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ih-btn-red {
+    width: 100%;
+  }
+
+  .ih-col-hint {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .ih-console {
+    font-size: 0.70rem;
+    height: 180px;
+  }
+
+  .ih-lock-badge {
+    font-size: 0.75rem;
+  }
+}
