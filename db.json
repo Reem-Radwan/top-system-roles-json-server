@@ -1,4 +1,107 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "name": "Reem Admin",
+      "email": "admin@prometheus.test",
+      "password": "Admin123!",
+      "role": "Admin",
+      "isSuperuser": true,
+      "viewerPages": [],
+      "company_id": null
+    },
+    {
+      "id": 2,
+      "name": "Reem Developer",
+      "email": "developer@prometheus.test",
+      "password": "Dev123!",
+      "role": "Developer",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": null
+    },
+    {
+      "id": 3,
+      "name": "Reem TeamMember",
+      "email": "team@prometheus.test",
+      "password": "Team123!",
+      "role": "TeamMember",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 1
+    },
+    {
+      "id": 4,
+      "name": "Reem Uploader",
+      "email": "uploader@prometheus.test",
+      "password": "Upload123!",
+      "role": "Uploader",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 1
+    },
+    {
+      "id": 5,
+      "name": "Reem Operation",
+      "email": "salesop@prometheus.test",
+      "password": "SalesOp123!",
+      "role": "SalesOperation",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 2
+    },
+    {
+      "id": 6,
+      "name": "Reem Manager",
+      "email": "manager@prometheus.test",
+      "password": "Manager123!",
+      "role": "Manager",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 1
+    },
+    {
+      "id": 7,
+      "name": "Reem Sales",
+      "email": "sales@prometheus.test",
+      "password": "Sales123!",
+      "role": "Sales",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 2
+    },
+    {
+      "id": 8,
+      "name": "Reem SalesHead",
+      "email": "saleshead@prometheus.test",
+      "password": "SalesHead123!",
+      "role": "SalesHead",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 2
+    },
+    {
+      "id": 9,
+      "name": "Reem Viewer",
+      "email": "viewer@prometheus.test",
+      "password": "Viewer123!",
+      "role": "Viewer",
+      "isSuperuser": false,
+      "viewerPages": ["top", "masterplans", "catalog", "inv_report"],
+      "company_id": 3
+    },
+    {
+      "id": 10,
+      "name": "Reem User",
+      "email": "test@prometheus.com.eg",
+      "password": "Test123!",
+      "role": "Viewer",
+      "isSuperuser": false,
+      "viewerPages": [],
+      "company_id": 3
+    }
+  ],
+
   "companies": [
     {
       "id": "1",
