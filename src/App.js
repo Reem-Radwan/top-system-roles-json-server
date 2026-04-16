@@ -25,6 +25,7 @@ import CancellationPage from "./pages/Cancellation/cancellation";
 import SalesTeamPerformance from "./pages/SalesTeamPerformance/salesteamperformance";
 import ApprovalsHistory from "./pages/ApprovalsHistory/approvalshistory";
 import CustomizedReport from "./pages/CustomizedReport/customizedreport";
+import VariableDiscountRate from "./pages/VariableDiscountRate/variable-discount-rate";
 
 function getStoredUser() {
   try {
@@ -100,6 +101,7 @@ export default function App() {
           <Route path="/sales-team-performance"element={<P path="/sales-team-performance"><SalesTeamPerformance /> </P>} />
           <Route path="/approvals-history"     element={<P path="/approvals-history">     <ApprovalsHistory />      </P>} />
           <Route path="/customized-report"     element={<P path="/customized-report">     <CustomizedReport />      </P>} />
+          <Route path="/variable-discount-rate"element={<P path="/variable-discount-rate">     <VariableDiscountRate />      </P>} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

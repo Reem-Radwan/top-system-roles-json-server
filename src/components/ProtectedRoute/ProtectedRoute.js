@@ -22,6 +22,7 @@ const ROUTE_PERMISSIONS = {
   "/sales-team-performance": ['Admin', 'Developer', 'TeamMember', 'Manager', 'SalesHead'],
   "/approvals-history":      ['Admin', 'Developer', 'TeamMember', 'Manager', 'Sales', 'SalesHead'],
   "/customized-report":      ['Admin', 'Developer', 'TeamMember', 'Manager', 'Uploader'],
+  "/variable-discount-rate" :['Admin','Developer','Uploader'],
 };
 
 function getCurrentUser() {
