@@ -55,7 +55,7 @@ const MENUS = {
       items: [
         { label: 'Manage Projects',    to: '/manage-projects' },
         { label: 'Masterplan Settings',to: '/masterplans-settings' },
-        { label: 'Payments Input',     to: '/payments-input' },
+        { label: 'Payments Input',     to: '/dual-payments' },
         { label: 'Special Offer Input',to: '/special-offer-input' },
         { label: 'Max Dicount Variables', to: '/variable-discount-rate' },
         { label: 'Web Configurations', to: '/web-configurations' },
@@ -99,7 +99,8 @@ const MENUS = {
         { label: 'Manage Companies',to: '/manage-companies' },
         { label: 'Attendance Sheet',to: '/attendance-sheet' },
         { label: 'Google Sheets',   to: '/google-sheets' },
-        // { label: 'Database', to: '/database' }  ← superuser-only; added at runtime
+        // { label: 'Database', to: '/database' } ,
+        { label: 'User Traffic Analysis', to: '/user-traffic-analysis' } 
       ],
     },
   ],
@@ -121,7 +122,7 @@ const MENUS = {
       items: [
         { label: 'Manage Projects',    to: '/manage-projects' },
         { label: 'Masterplan Settings',to: '/masterplans-settings' },
-        { label: 'Payments Input',     to: '/payments-input' },
+        { label: 'Payments Input',     to: '/dual-payments' },
         { label: 'Special Offer Input',to: '/special-offer-input' },
         { label: 'Web Configurations', to: '/web-configurations' },
       ],
@@ -168,7 +169,7 @@ const MENUS = {
       items: [
         { label: 'Manage Projects',    to: '/manage-projects' },
         { label: 'Masterplan Settings',to: '/masterplans-settings' },
-        { label: 'Payments Input',     to: '/payments-input' },
+        { label: 'Payments Input',     to: '/dual-payments' },
         { label: 'Special Offer Input',to: '/special-offer-input' },
         { label: 'Max Dicount Variables', to: '/variable-discount-rate' },
         { label: 'Web Configurations', to: '/web-configurations' },

@@ -1,0 +1,702 @@
+
+
+/* ===== CSS VARIABLES (scoped) ===== */
+.uta__container {
+  --uta-accent:       #ea580c;
+  --uta-accent-light: #fff7ed;
+  --uta-accent-mid:   #fdba74;
+  --uta-accent-dark:  #c2410c;
+  --uta-navy:         #1e293b;
+  --uta-slate:        #334155;
+  --uta-muted:        #64748b;
+  --uta-border:       #e2e8f0;
+  --uta-border-light: #f1f5f9;
+  --uta-bg:           #f8fafc;
+  --uta-panel:        #ffffff;
+  --uta-text:         #1e293b;
+  --uta-radius:       10px;
+  --uta-radius-sm:    6px;
+  --uta-shadow:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --uta-shadow-md:    0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --uta-shadow-hover: 0 8px 24px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.04);
+}
+
+/* ===== CONTAINER ===== */
+.uta__container {
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--uta-text);
+  margin-top: 0;
+  padding: 0 20px;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--uta-bg);
+  background-image:
+    radial-gradient(circle at 20% 0%,  rgba(234,88,12,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 100%, rgba(51,65,85,0.04)  0%, transparent 50%);
+  min-height: 100vh;
+}
+
+.uta__container *,
+.uta__container *::before,
+.uta__container *::after {
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* ===== SCROLLBAR ===== */
+.uta__container ::-webkit-scrollbar        { width: 6px; height: 6px; }
+.uta__container ::-webkit-scrollbar-track  { background: var(--uta-border-light); }
+.uta__container ::-webkit-scrollbar-thumb  { background: var(--uta-border); border-radius: 99px; }
+.uta__container ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ===== HEADER ===== */
+.uta__dash-header {
+  background: #ffffff;
+  border: 1px solid var(--uta-border);
+  border-radius: var(--uta-radius);
+  padding: 24px 28px;
+  margin: 20px 0 24px;
+  box-shadow: var(--uta-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.uta__dash-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--uta-accent);
+  border-radius: var(--uta-radius) 0 0 var(--uta-radius);
+}
+.uta__dash-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: var(--uta-navy);
+  letter-spacing: -0.5px;
+  margin: 0;
+  line-height: 1.1;
+}
+.uta__dash-sub {
+  font-size: 0.75rem;
+  color: var(--uta-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.uta__dash-meta {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* ===== FILTER COUNT BADGE ===== */
+.uta__filter-count-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: var(--uta-accent);
+  color: #fff;
+  border-radius: 99px;
+  padding: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.3px;
+}
+
+/* ===== CLEAR BUTTON ===== */
+.uta__clear-btn {
+  border: 1.5px solid var(--uta-border);
+  border-radius: var(--uta-radius-sm);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--uta-muted);
+  background: var(--uta-panel);
+  padding: 7px 14px;
+  transition: all 0.18s;
+  cursor: pointer;
+}
+.uta__clear-btn:hover {
+  border-color: var(--uta-accent);
+  color: var(--uta-accent);
+  background: var(--uta-accent-light);
+}
+
+/* ===== FILTER CHIPS BAR ===== */
+.uta__filter-chips-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 0 14px;
+  min-height: 36px;
+}
+
+/* ===== FILTER CHIP ===== */
+.uta__filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  animation: uta__chipIn 0.2s ease;
+}
+.uta__filter-chip:hover {
+  background: #ffedd5;
+  border-color: var(--uta-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(234,88,12,0.15);
+}
+.uta__chip-x {
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+.uta__chip-x:hover { opacity: 1; }
+
+@keyframes uta__chipIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ===== PANELS ===== */
+.uta__panel {
+  background: var(--uta-panel);
+  border: 1px solid var(--uta-border);
+  border-radius: var(--uta-radius);
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: var(--uta-shadow);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.uta__panel:hover {
+  box-shadow: var(--uta-shadow-md);
+}
+.uta__filter-panel {
+  background: linear-gradient(135deg, #fffbf7 0%, #fff8f2 100%);
+  border: 1px solid #fde8d0;
+  border-left: 3px solid var(--uta-accent);
+}
+
+/* ===== KPI CARDS ===== */
+.uta__kpi-card {
+  background: var(--uta-panel);
+  border: 1px solid var(--uta-border);
+  border-radius: var(--uta-radius);
+  padding: 18px 20px;
+  box-shadow: var(--uta-shadow);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.uta__kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--uta-kpi-color, #e2e8f0);
+  border-radius: var(--uta-radius) var(--uta-radius) 0 0;
+}
+.uta__kpi-card:hover {
+  box-shadow: var(--uta-shadow-md);
+  transform: translateY(-2px);
+}
+
+.uta__c-navy   { --uta-kpi-color: #334155; }
+.uta__c-accent { --uta-kpi-color: var(--uta-accent); }
+.uta__c-slate  { --uta-kpi-color: #94a3b8; }
+.uta__c-green  { --uta-kpi-color: #16a34a; }
+.uta__c-purple { --uta-kpi-color: #7c3aed; }
+.uta__c-amber  { --uta-kpi-color: #d97706; }
+
+.uta__kpi-title {
+  font-size: 0.7rem;
+  color: var(--uta-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.uta__kpi-val {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--uta-navy);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.uta__kpi-val--sm {
+  font-size: 1.6rem;
+  letter-spacing: -0.5px;
+}
+.uta__kpi-val--xs {
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+.uta__kpi-sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 5px;
+}
+.uta__kpi-icon {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  font-size: 2rem;
+  opacity: 0.06;
+  font-weight: 900;
+  color: var(--uta-navy);
+  line-height: 1;
+  user-select: none;
+}
+
+/* ===== SECTION LABELS ===== */
+.uta__sec-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #94a3b8;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.uta__sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--uta-border);
+}
+
+/* ===== CHART PANELS ===== */
+.uta__chart-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--uta-navy);
+  margin: 0;
+}
+.uta__chart-title-area {
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--uta-border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.uta__chart-hint {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+.uta__chart-box {
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+}
+.uta__chart-box canvas {
+  flex: 1;
+  min-height: 0;
+  cursor: pointer;
+}
+
+/* ===== SCROLLABLE ===== */
+.uta__scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== TABLES ===== */
+.uta__table-wrap {
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+/* Override Bootstrap table styles within our scope */
+.uta__container .table th {
+  background: var(--uta-border-light);
+  color: var(--uta-muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--uta-border) !important;
+  padding: 10px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.uta__container .table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--uta-border-light) !important;
+  color: var(--uta-slate);
+  font-size: 0.85rem;
+}
+.uta__container .table tbody tr {
+  transition: background-color 0.15s;
+}
+
+.uta__interactive-table tbody tr {
+  cursor: pointer;
+}
+.uta__interactive-table tbody tr:hover,
+.uta__interactive-table tbody tr:hover td {
+  background-color: #fff7ed !important;
+  transform: none !important;
+}
+.uta__interactive-table tbody tr.uta__row-selected {
+  background-color: #fff1e6 !important;
+  border-left: 3px solid var(--uta-accent);
+  transform: none !important;
+}
+.uta__interactive-table tbody tr.uta__row-selected td {
+  background-color: #fff1e6 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  color: var(--uta-navy);
+}
+.uta__interactive-table tbody tr:hover td {
+  color: var(--uta-navy);
+}
+
+/* ===== BADGES ===== */
+.uta__badge-m {
+  background: var(--uta-border-light);
+  color: var(--uta-accent-dark);
+  border: 1px solid #fde8d0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-family: 'Times New Roman', Times, serif;
+}
+.uta__f-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--uta-accent-light);
+  color: var(--uta-accent-dark);
+  border: 1px solid var(--uta-accent-mid);
+  padding: 1px 7px;
+  border-radius: 99px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ===== PROGRESS BAR ===== */
+.uta__progress {
+  border-radius: 99px;
+  height: 6px;
+  background: var(--uta-border-light);
+  overflow: hidden;
+}
+.uta__progress-bar {
+  height: 100%;
+  border-radius: 99px;
+}
+
+/* ===== COHORT CELL ===== */
+.uta__cohort-cell {
+  width: 52px;
+  height: 30px;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: var(--uta-radius-sm);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
+}
+.uta__cohort-cell:hover {
+  filter: brightness(1.1);
+}
+
+/* ===== HEATMAP ===== */
+.uta__heatmap-section {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.uta__heatmap-cell {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  margin: 2px;
+  border-radius: var(--uta-radius-sm);
+  cursor: pointer;
+  transition: opacity 0.12s, transform 0.1s;
+}
+.uta__heatmap-cell:hover {
+  opacity: 0.75;
+  transform: scale(1.15);
+}
+.uta__hm-selected {
+  outline: 2px solid var(--uta-accent);
+  outline-offset: 1px;
+}
+.uta__heatmap-label {
+  font-size: 0.65rem;
+  color: var(--uta-muted);
+  width: 36px;
+  text-align: right;
+  padding-right: 8px;
+  font-weight: 600;
+}
+.uta__heatmap-col-label {
+  font-size: 0.62rem;
+  color: #94a3b8;
+  width: 32px;
+  text-align: center;
+}
+
+/* ===== FILTER LABELS & FORM CONTROLS ===== */
+.uta__filter-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--uta-muted);
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Scope Bootstrap form controls inside our container */
+.uta__container .form-control,
+.uta__container .form-select {
+  border-radius: var(--uta-radius-sm) !important;
+  border: 1px solid var(--uta-border);
+  font-size: 0.85rem;
+  color: var(--uta-navy);
+  font-family: 'Times New Roman', Times, serif;
+}
+.uta__container .form-control:focus,
+.uta__container .form-select:focus {
+  border-color: var(--uta-accent) !important;
+  box-shadow: 0 0 0 3px rgba(234,88,12,0.1) !important;
+}
+
+/* TomSelect overrides */
+.uta__container .ts-control {
+  border-radius: var(--uta-radius-sm) !important;
+  border: 1px solid var(--uta-border) !important;
+  box-shadow: none !important;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.85rem;
+  color: var(--uta-navy);
+}
+.uta__container .ts-wrapper.focus .ts-control {
+  border-color: var(--uta-accent) !important;
+  box-shadow: 0 0 0 3px rgba(234,88,12,0.1) !important;
+}
+
+/* Bootstrap toggle accent override */
+.uta__container .form-check-input:checked {
+  background-color: var(--uta-accent) !important;
+  border-color: var(--uta-accent) !important;
+}
+
+/* All canvases inside our dashboard are pointer */
+.uta__container canvas {
+  cursor: pointer;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .uta__dash-title                   { font-size: 1.4rem; }
+  .uta__kpi-val                      { font-size: 1.7rem; }
+  .uta__kpi-val--sm                  { font-size: 1.3rem; }
+  .uta__chart-box                    { height: 260px; }
+  .uta__panel                        { padding: 16px; }
+  .uta__container                    { padding: 0 12px; }
+  .uta__heatmap-section              { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .uta__heatmap-section > div       { min-width: 800px; }
+}
+
+
+/* ===== SEARCHABLE MULTI-SELECT (SMS) ===== */
+/* Add these rules to the bottom of user-traffic-analysis.css */
+
+.uta__sms-container {
+  position: relative;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.85rem;
+}
+
+/* The clickable trigger box */
+.uta__sms-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid var(--uta-border);
+  border-radius: var(--uta-radius-sm);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  user-select: none;
+}
+.uta__sms-box:hover {
+  border-color: #94a3b8;
+}
+.uta__sms-box--open {
+  border-color: var(--uta-accent) !important;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+}
+
+/* Tags + inline search input area */
+.uta__sms-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.uta__sms-placeholder {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Selected value tags */
+.uta__sms-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 1px 8px 1px 8px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.uta__sms-tag-x {
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.uta__sms-tag-x:hover {
+  opacity: 1;
+}
+
+/* Inline search input */
+.uta__sms-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.82rem;
+  color: var(--uta-navy);
+  min-width: 80px;
+  flex: 1;
+  padding: 0;
+}
+.uta__sms-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Dropdown arrow */
+.uta__sms-arrow {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: transform 0.18s;
+  display: inline-block;
+}
+.uta__sms-arrow--up {
+  transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+.uta__sms-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--uta-border);
+  border-radius: var(--uta-radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+  z-index: 9000;
+  max-height: 220px;
+  overflow-y: auto;
+  animation: uta__smsIn 0.15s ease;
+}
+@keyframes uta__smsIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Empty state */
+.uta__sms-empty {
+  padding: 12px 14px;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+/* Option row */
+.uta__sms-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 0.83rem;
+  color: var(--uta-slate);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.uta__sms-option:hover {
+  background: #fff7ed;
+  color: var(--uta-navy);
+}
+.uta__sms-option--selected {
+  background: #fff7ed;
+  color: #c2410c;
+  font-weight: 600;
+}
+.uta__sms-option--selected:hover {
+  background: #ffedd5;
+}
+
+/* Checkmark column */
+.uta__sms-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--uta-accent);
+  font-weight: 700;
+}

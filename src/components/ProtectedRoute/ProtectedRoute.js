@@ -23,6 +23,8 @@ const ROUTE_PERMISSIONS = {
   "/approvals-history":      ['Admin', 'Developer', 'TeamMember', 'Manager', 'Sales', 'SalesHead'],
   "/customized-report":      ['Admin', 'Developer', 'TeamMember', 'Manager', 'Uploader'],
   "/variable-discount-rate" :['Admin','Developer','Uploader'],
+  "/dual-payments" : ["Admin" , "Developer" , 'TeamMember' , 'Uploader'],
+  "/user-traffic-analysis" : ["Admin"]
 };
 
 function getCurrentUser() {

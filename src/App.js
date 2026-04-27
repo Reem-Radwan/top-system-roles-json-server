@@ -26,6 +26,8 @@ import SalesTeamPerformance from "./pages/SalesTeamPerformance/salesteamperforma
 import ApprovalsHistory from "./pages/ApprovalsHistory/approvalshistory";
 import CustomizedReport from "./pages/CustomizedReport/customizedreport";
 import VariableDiscountRate from "./pages/VariableDiscountRate/variable-discount-rate";
+import DualPayment from "./pages/DualPaymentsInput/dual-payments";
+import UserTrafficAnalysis from "./pages/UserTrafficAnalysis/user-traffic-analysis";
 
 function getStoredUser() {
   try {
@@ -101,7 +103,9 @@ export default function App() {
           <Route path="/sales-team-performance"element={<P path="/sales-team-performance"><SalesTeamPerformance /> </P>} />
           <Route path="/approvals-history"     element={<P path="/approvals-history">     <ApprovalsHistory />      </P>} />
           <Route path="/customized-report"     element={<P path="/customized-report">     <CustomizedReport />      </P>} />
-          <Route path="/variable-discount-rate"element={<P path="/variable-discount-rate">     <VariableDiscountRate />      </P>} />
+          <Route path="/variable-discount-rate"element={<P path="/variable-discount-rate">     <VariableDiscountRate /> </P>} />
+          <Route path="/dual-payments"element={<P path="/dual-payments">     <DualPayment /> </P>} />
+          <Route path="/user-traffic-analysis"element={<P path="/user-traffic-analysis">     <UserTrafficAnalysis /> </P>} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

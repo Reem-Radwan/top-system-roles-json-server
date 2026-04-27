@@ -26,7 +26,7 @@ import {
   fetchUnitModels,
   fetchGallery,
   saveGallery,
-} from '../services/brochureapi';
+} from '../services/brochureApi';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // QUERY HELPERS
